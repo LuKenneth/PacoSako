@@ -1,6 +1,5 @@
-const game = require('chess.js');
-
-var board,
+var game = new Chess(),
+board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
