@@ -1,0 +1,18 @@
+h1 {
+
+    text-align: center;
+
+}
+
+.playButton {
+
+    text-align: center;
+    display: block;
+
+}
+
+.playButton input {
+    height: 200px;
+    width: 200px;
+    font-size: 22px;
+}
