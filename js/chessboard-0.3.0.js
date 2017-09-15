@@ -596,7 +596,7 @@ function buildBoard(orientation) {
     html += '<div class="' + CSS.row + '">';
     for (var j = 0; j < 8; j++) {
       var square = alpha[j] + row;
-
+      console.log(SQUARE_SIZE);
       html += '<div class="' + CSS.square + ' ' + CSS[squareColor] + ' ' +
         'square-' + square + '" ' +
         'style="width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px" ' +
@@ -651,6 +651,7 @@ function buildPieceImgSrc(piece) {
   return '';
 }
 
+//TAG: MODIFY
 function buildPiece(piece, hidden, id) {
   var html = '<img src="' + buildPieceImgSrc(piece) + '" ';
   if (id && typeof id === 'string') {
@@ -659,8 +660,8 @@ function buildPiece(piece, hidden, id) {
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
   'data-piece="' + piece + '" ' +
-  'style="width: ' + SQUARE_SIZE + 'px;' +
-  'height: ' + SQUARE_SIZE + 'px;';
+  'style="width: ' + SQUARE_SIZE/1.5 + 'px;' +
+  'height: ' + SQUARE_SIZE/1.5 + 'px;';
   if (hidden === true) {
     html += 'display:none;';
   }
