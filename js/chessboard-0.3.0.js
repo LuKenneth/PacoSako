@@ -652,16 +652,19 @@ function buildPieceImgSrc(piece) {
 }
 
 //TAG: MODIFY
-function buildPiece(piece, hidden, id) {
+function buildPiece(piece, hidden, id, union) {
   var html = '<img src="' + buildPieceImgSrc(piece) + '" ';
   if (id && typeof id === 'string') {
     html += 'id="' + id + '" ';
   }
+  var union_size = SQUARE_SIZE/1.5;
+  var union_style_black = 'style="width: ' + union_size + 'px;' + 'float: right;' + ' padding-top: '+union_size/8+'px;' + 'height: ' + union_size + 'px;';
+  var union_style_white = 'style="width: ' + union_size + 'px;' + 'float: left;' + ' padding-top: '+union_size/8+'px;' + 'height: ' + union_size + 'px;';
+  var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
   'data-piece="' + piece + '" ' +
-  'style="width: ' + SQUARE_SIZE/1.5 + 'px;' +
-  'height: ' + SQUARE_SIZE/1.5 + 'px;';
+  union_style_black;
   if (hidden === true) {
     html += 'display:none;';
   }
