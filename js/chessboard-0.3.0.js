@@ -438,11 +438,12 @@ function expandConfig() {
     cfg.draggable = true;
   }
 
-  // default piece theme is wikipedia
+  // default piece theme is 
+  //Overrided with images from the game rules pdf
   if (cfg.hasOwnProperty('pieceTheme') !== true ||
       (typeof cfg.pieceTheme !== 'string' &&
        typeof cfg.pieceTheme !== 'function')) {
-    cfg.pieceTheme = 'img/chesspieces/wikipedia/{piece}.png';
+    cfg.pieceTheme = 'img/chesspieces/PacoSakoGameRules/{piece}.png';
   }
 
   // animation speeds
