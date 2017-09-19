@@ -597,7 +597,6 @@ function buildBoard(orientation) {
     html += '<div class="' + CSS.row + '">';
     for (var j = 0; j < 8; j++) {
       var square = alpha[j] + row;
-      console.log(SQUARE_SIZE);
       html += '<div class="' + CSS.square + ' ' + CSS[squareColor] + ' ' +
         'square-' + square + '" ' +
         'style="width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px" ' +
@@ -658,14 +657,19 @@ function buildPiece(piece, hidden, id, union) {
   if (id && typeof id === 'string') {
     html += 'id="' + id + '" ';
   }
+
   var union_size = SQUARE_SIZE/1.5;
-  var union_style_black = 'style="width: ' + union_size + 'px;' + 'float: right;' + ' padding-top: '+union_size/8+'px;' + 'height: ' + union_size + 'px;';
-  var union_style_white = 'style="width: ' + union_size + 'px;' + 'float: left;' + ' padding-top: '+union_size/8+'px;' + 'height: ' + union_size + 'px;';
+  var union_style_black = 'style="width: ' + union_size + 'px;' + 'float: right;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
+  var union_style_white = 'style="width: ' + union_size + 'px;' + 'float: left;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
   var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
+  var style = standard_style;
+  if (union) {
+    style = (piece[0]=='b') ? union_style_black : union_style_white;
+  }
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
   'data-piece="' + piece + '" ' +
-  union_style_black;
+  style;
   if (hidden === true) {
     html += 'display:none;';
   }
