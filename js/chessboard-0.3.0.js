@@ -76,8 +76,14 @@ function validPositionObject(pos) {
   return true;
 }
 
+//TAG: MODIFY
+//converts fen to piece and piece to fen
 // convert FEN piece code to bP, wK, etc
 function fenToPieceCode(piece) {
+  //a union
+  if(piece.indexOf("u") > -1) {
+    return 'w' + piece[1].toUpperCase + 'ub' + piece[4].toUpperCase;
+  }
   // black piece
   if (piece.toLowerCase() === piece) {
     return 'b' + piece.toUpperCase();
