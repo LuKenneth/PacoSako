@@ -1,8 +1,8 @@
-var board = new Chess(),
+var game = new Chess("rnbqkbnr/pppppppp/8/8/8/3P4/PPP1PPPP/RNBQKBNR b KQkq - 0 1"),
+board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
-
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
