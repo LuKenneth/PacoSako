@@ -4,6 +4,15 @@ statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
 
+// setup my socket client
+var socket = io();
+msgButton.onclick = function(e) {
+    // someone clicked send a message
+    socket.emit('message', 'hello world!');
+}
+//NEW CODE ABOVE
+
+
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
@@ -77,3 +86,4 @@ onSnapEnd: onSnapEnd
 board = ChessBoard('board', cfg);
 
 updateStatus();
+
