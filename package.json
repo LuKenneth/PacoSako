@@ -18,6 +18,7 @@
   "homepage": "https://github.com/LuKenneth/PacoSako#readme",
   "dependencies": {
     "chess.js": "^0.10.2",
-    "requirejs": "^2.3.5"
+    "requirejs": "^2.3.5",
+    "socket.io": "^2.0.3"
   }
 }

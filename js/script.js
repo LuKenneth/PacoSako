@@ -1,15 +1,15 @@
-var game = new Chess(),
+var game = new Chess("rnbqkbnr/pppppppp/8/8/8/3P4/PPP1PPPP/RNBQKBNR b KQkq - 0 1"),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
 
 // setup my socket client
-var socket = io();
-msgButton.onclick = function(e) {
-    // someone clicked send a message
-    socket.emit('message', 'hello world!');
-}
+// var socket = io();
+// msgButton.onclick = function(e) {
+//     // someone clicked send a message
+//     socket.emit('message', 'hello world!');
+// }
 //NEW CODE ABOVE
 
 

@@ -82,7 +82,7 @@ function validPositionObject(pos) {
 function fenToPieceCode(piece) {
   //a union
   if(piece.indexOf("u") > -1) {
-    return 'w' + piece[1].toUpperCase + 'ub' + piece[4].toUpperCase;
+    return 'w' + piece[0].toUpperCase + 'ub' + piece[2].toUpperCase;
   }
   // black piece
   if (piece.toLowerCase() === piece) {
@@ -93,6 +93,7 @@ function fenToPieceCode(piece) {
   return 'w' + piece.toUpperCase();
 }
 
+//TAG: MODIFY
 // convert bP, wK, etc code to FEN structure
 function pieceCodeToFen(piece) {
   var tmp = piece.split('');
@@ -100,6 +101,10 @@ function pieceCodeToFen(piece) {
   // white piece
   if (tmp[0] === 'w') {
     return tmp[1].toUpperCase();
+  }
+
+  if (tmp.indexOf("u") > -1) {
+    return tmp[1].toUpperCase() + "u" + tmp[4].toLowerCase();
   }
 
   // black piece
@@ -670,7 +675,7 @@ function buildPiece(piece, hidden, id, union) {
   var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
   var style = standard_style;
   if (union) {
-    style = (piece[0]=='b') ? union_style_black : union_style_white;
+    //style = (piece[0]=='b') ? union_style_black : union_style_white;
   }
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
