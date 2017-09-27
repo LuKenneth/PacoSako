@@ -54,7 +54,7 @@ function validFen(fen) {
   for (var i = 0; i < 8; i++) {
     if (chunks[i] === '' ||
         chunks[i].length > 8 ||
-        chunks[i].search(/[^kqrbnpKQRNBP1-8]/) !== -1) {
+        chunks[i].search(/[^ukqrbnpKQRNBP1-8]/) !== -1) {
       return false;
     }
   }
@@ -113,9 +113,10 @@ function pieceCodeToFen(piece) {
 
 // convert FEN string to position object
 // returns false if the FEN string is invalid
+//fen is getting filtered before it reaches here. we never see a 'u'
 function fenToObj(fen) {
   if (validFen(fen) !== true) {
-    return false;
+    //return false;
   }
 
   // cut off any move, castling, etc info from the end
@@ -131,6 +132,8 @@ function fenToObj(fen) {
     var colIndex = 0;
 
     // loop through each character in the FEN section
+    console.log(fen);
+    console.log(row);
     for (var j = 0; j < row.length; j++) {
       // number / empty squares
       if (row[j].search(/[1-8]/) !== -1) {
@@ -155,7 +158,7 @@ function fenToObj(fen) {
 // returns false if the obj is not a valid position object
 function objToFen(obj) {
   if (validPositionObject(obj) !== true) {
-    return false;
+    //return false;
   }
 
   var fen = '';
@@ -485,7 +488,10 @@ function expandConfig() {
       CURRENT_POSITION = deepCopy(START_POSITION);
     }
 
-    else if (validFen(cfg.position) === true) {
+    // else if (validFen(cfg.position) === true) {
+    //   CURRENT_POSITION = fenToObj(cfg.position);
+    // }
+    else if ( true) {
       CURRENT_POSITION = fenToObj(cfg.position);
     }
 
@@ -1433,7 +1439,10 @@ widget.position = function(position, useAnimation) {
   }
 
   // convert FEN to position object
-  if (validFen(position) === true) {
+  // if (validFen(position) === true) {
+  //   position = fenToObj(position);
+  // }
+  if (true) {
     position = fenToObj(position);
   }
 

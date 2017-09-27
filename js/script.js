@@ -1,4 +1,4 @@
-var game = new Chess("rnbqkbnr/pppppppp/8/8/8/3P4/PPP1PPPP/RNBQKBNR b KQkq - 0 1"),
+var game = new Chess("rnbq1bnr/Puppkp1p1/8/4p1p1/P5P1/2N5/1PPPPPBP/R1BQK1NR b KQ - 3 4"),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
@@ -84,6 +84,6 @@ onDrop: onDrop,
 onSnapEnd: onSnapEnd
 };
 board = ChessBoard('board', cfg);
-
+board.position(game.fen());
 updateStatus();
 
