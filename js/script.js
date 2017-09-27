@@ -1,3 +1,4 @@
+
 var socket = io();
 msgButton.onclick = function(e) {
     // someone clicked send a message
