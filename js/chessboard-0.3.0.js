@@ -82,7 +82,7 @@ function validPositionObject(pos) {
 function fenToPieceCode(piece) {
   //a union
   if(piece.indexOf("u") > -1) {
-    return 'w' + piece[0].toUpperCase + 'ub' + piece[2].toUpperCase;
+    return 'w' + piece[0].toUpperCase() + 'ub' + piece[2].toUpperCase();
   }
   // black piece
   if (piece.toLowerCase() === piece) {
@@ -143,7 +143,16 @@ function fenToObj(fen) {
       // piece
       else {
         var square = COLUMNS[colIndex] + currentRow;
-        position[square] = fenToPieceCode(row[j]);
+
+         //modified
+        if(row[j]=='u') {
+          var union_piece = row[j-1] + row[j] + row[j+1];
+          position[square] = fenToPieceCode(union_piece);
+          colIndex++;
+        } else {
+          position[square] = fenToPieceCode(row[j]);
+        }
+        
         colIndex++;
       }
     }
