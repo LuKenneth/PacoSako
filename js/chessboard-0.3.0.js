@@ -35,11 +35,15 @@ function validSquare(square) {
 
 function validPieceCode(code) {
   if (typeof code !== 'string') return false;
+  //modified
+  return true;
   return (code.search(/^[bw][KQRNBP]$/) !== -1);
 }
 
 // TODO: this whole function could probably be replaced with a single regex
 function validFen(fen) {
+  //modified
+  return true;
   if (typeof fen !== 'string') return false;
 
   // cut off any move, castling, etc info from the end
@@ -52,6 +56,7 @@ function validFen(fen) {
 
   // check the piece sections
   for (var i = 0; i < 8; i++) {
+    //modified
     if (chunks[i] === '' ||
         chunks[i].length > 8 ||
         chunks[i].search(/[^ukqrbnpKQRNBP1-8]/) !== -1) {
@@ -132,8 +137,8 @@ function fenToObj(fen) {
     var colIndex = 0;
 
     // loop through each character in the FEN section
-    console.log(fen);
-    console.log(row);
+    //console.log(fen);
+    //console.log(row);
     for (var j = 0; j < row.length; j++) {
       // number / empty squares
       if (row[j].search(/[1-8]/) !== -1) {
