@@ -43,7 +43,7 @@ function validPieceCode(code) {
 // TODO: this whole function could probably be replaced with a single regex
 function validFen(fen) {
   //modified
-  return true;
+  //return true;
   if (typeof fen !== 'string') return false;
 
   // cut off any move, castling, etc info from the end
