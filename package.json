@@ -1,24 +1,23 @@
 {
-  "name": "pacosako",
-  "version": "1.0.0",
-  "description": "Peaceful chess. A game created for John Carroll University's CS470 course.",
-  "main": "index.html",
+  "name": "RealChess",
+  "version": "0.0.1",
+  "description": "Real-time chess game ",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LuKenneth/PacoSako.git"
+    "url": "https://github.com/dwcares/socketserver"
   },
-  "author": "Luke Patterson, Nicholas Krotine, Brandon Velic, Brandon West",
-  "license": "MIT",
+  "author": "dwcares",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LuKenneth/PacoSako/issues"
+    "url": "https://github.com/dwcares/socketserver/issues"
   },
-  "homepage": "https://github.com/LuKenneth/PacoSako#readme",
+  "homepage": "https://github.com/dwcares/socketserver",
   "dependencies": {
-    "chess.js": "^0.10.2",
-    "express": "^4.15.5",
-    "requirejs": "^2.3.5"
+    "express": "^4.10.2",
+    "socket.io": "^1.3.5"
   }
 }
