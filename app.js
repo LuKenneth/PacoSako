@@ -1,7 +1,16 @@
+
+/*
 var express = require('express');
 var app = express();
-app.use(express.static('public'));
-app.use(express.static('dashboard'));
+app.use(express.static('.'));
+var http = require('http').Server(app);
+var port = 3000;
+*/
+
+var express = require('express');
+var app = express();
+app.use(express.static('.'));
+//app.use(express.static('dashboard'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
@@ -11,7 +20,7 @@ var users = {};
 var activeGames = {};
 
 app.get('/', function(req, res) {
- res.sendFile(__dirname + '/public/default.html');
+ res.sendFile(__dirname + 'index.html');
 
 });
 
@@ -145,3 +154,28 @@ io.on('connection', function(socket) {
 http.listen(port, function() {
     console.log('listening on *: ' + port);
 });
+
+
+
+
+
+//OLD CODE
+
+/*
+http.listen(port, function () {
+    console.log('listening on *: ' + port);
+});
+
+
+
+// setup my socket server
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+    console.log('New connection');
+
+    socket.on('message', function(msg) {
+        console.log('Got message from client: ' + msg);
+    });
+});
+*/
