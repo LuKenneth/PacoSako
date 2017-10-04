@@ -34,9 +34,10 @@ function validSquare(square) {
 }
 
 function validPieceCode(code) {
-  if (typeof code !== 'string') return false;
   //modified
   return true;
+  if (typeof code !== 'string') return false;
+  
   return (code.search(/^[bw][KQRNBP]$/) !== -1);
 }
 
@@ -58,7 +59,6 @@ function validFen(fen) {
   for (var i = 0; i < 8; i++) {
     //modified
     if (chunks[i] === '' ||
-        chunks[i].length > 8 ||
         chunks[i].search(/[^ukqrbnpKQRNBP1-8]/) !== -1) {
       return false;
     }
@@ -120,8 +120,9 @@ function pieceCodeToFen(piece) {
 // returns false if the FEN string is invalid
 //fen is getting filtered before it reaches here. we never see a 'u'
 function fenToObj(fen) {
+  //modified
   if (validFen(fen) !== true) {
-    //return false;
+    return false;
   }
 
   // cut off any move, castling, etc info from the end
@@ -684,6 +685,7 @@ function buildPieceImgSrc(piece) {
 
 //TAG: MODIFY
 function buildPiece(piece, hidden, id, union) {
+  // console.log(JSON.stringify(piece));
   var html = '<img src="' + buildPieceImgSrc(piece) + '" ';
   if (id && typeof id === 'string') {
     html += 'id="' + id + '" ';
@@ -1463,7 +1465,7 @@ widget.position = function(position, useAnimation) {
   // validate position object
   if (validPositionObject(position) !== true) {
     error(6482, 'Invalid value passed to the position method.', position);
-    return;
+    //return;
   }
 
   if (useAnimation === true) {
