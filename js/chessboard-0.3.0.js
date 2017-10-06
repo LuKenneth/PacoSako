@@ -103,13 +103,14 @@ function fenToPieceCode(piece) {
 function pieceCodeToFen(piece) {
   var tmp = piece.split('');
 
+  //union
+  if (tmp.indexOf("u") > -1) {
+    return tmp[1].toUpperCase() + "u" + tmp[4].toLowerCase();
+  }
+
   // white piece
   if (tmp[0] === 'w') {
     return tmp[1].toUpperCase();
-  }
-
-  if (tmp.indexOf("u") > -1) {
-    return tmp[1].toUpperCase() + "u" + tmp[4].toLowerCase();
   }
 
   // black piece
@@ -151,10 +152,10 @@ function fenToObj(fen) {
         var square = COLUMNS[colIndex] + currentRow;
 
          //modified
-        if(row[j]=='u') {
-          var union_piece = row[j-1] + row[j] + row[j+1];
+        if(row[j+1]=='u') {
+          var union_piece = row[j] + row[j+1] + row[j+2];
           position[square] = fenToPieceCode(union_piece);
-          colIndex++;
+          j = j+2;
         } else {
           position[square] = fenToPieceCode(row[j]);
         }
