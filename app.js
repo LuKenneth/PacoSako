@@ -24,8 +24,8 @@ app.get('/', function(req, res) {
 
 });
 
-app.get('/dashboard/', function(req, res) {
- res.sendFile(__dirname + '/dashboard/dashboard.html');
+app.get('/', function(req, res) {
+ res.sendFile(__dirname + 'game.html');
 });
 
 io.on('connection', function(socket) {
