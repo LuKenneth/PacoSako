@@ -16,9 +16,14 @@ pgnEl = $('#pgn');
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
+
+//modified
+if(game.game_over() === false && piece.search(/u/) !== -1) {
+  return true;
+}
 if (game.game_over() === true ||
-    (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-    (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    (game.turn() === 'w' && piece.search(/^b/) !== -1 ) ||
+    (game.turn() === 'b' && piece.search(/^w/) !== -1 )) {
   return false;
 }
 };
