@@ -43,7 +43,8 @@ if (game.turn()==='b')
   
    var random = [Math.floor(Math.random() * newMove.length)];
    game.move(newMove[random]);
-    
+
+   
    board.position(game.fen);
    game.turn()='w';
 }
@@ -67,6 +68,10 @@ window.setInterval(makeRandomMove,);
 
 updateStatus();
 };
+
+
+
+
 
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
