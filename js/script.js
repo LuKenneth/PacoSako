@@ -1,4 +1,4 @@
-/*
+
 var game = new Chess(),
 board,
 statusEl = $('#status'),
@@ -79,13 +79,13 @@ board = ChessBoard('board', cfg);
 
 updateStatus();
 
-*/
+
 
 
 
 
 //BEGINNING OF NEW CODE
-
+/*
 (function () {
   
   WinJS.UI.processAll().then(function () {
@@ -278,4 +278,6 @@ updateStatus();
       board.position(game.fen());
     };
   });
-})();
+  */
+//})
+//();
