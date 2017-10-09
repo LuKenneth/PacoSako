@@ -1,4 +1,4 @@
-var game = new Chess("RurnbPuq1bnr/pppkp1p1/8/4p1p1/P5P1/2N5/1PPPPPBP/R1BQK1NR b KQ - 3 4"),
+var game = new Chess(),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
@@ -37,7 +37,9 @@ var move = game.move({
 });
 
 // illegal move
-if (move === null) return 'snapback';
+if (move === null) {
+  return 'snapback';
+}
 
 updateStatus();
 };
