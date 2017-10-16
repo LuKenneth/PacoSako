@@ -47,7 +47,8 @@ updateStatus();
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
-board.position(game.fen());
+  //if this is commented out, those 3 ^ dont work, but unions do
+//board.position(game.fen());
 };
 
 var updateStatus = function() {
