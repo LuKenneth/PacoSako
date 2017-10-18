@@ -1,3 +1,9 @@
 !node_modules/
 node_modules/*
 !node_modules/chess.js/
+js/script.js.orig
+package.json.orig
+package_BACKUP_44307.json
+package_BASE_44307.json
+package_LOCAL_44307.json
+package_REMOTE_44307.json
