@@ -3,6 +3,7 @@ board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
+var testingAI = true;
 // "rnbqkbnr/pppppppp/8/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 0 1"
 // setup my socket client
 // var socket = io();
@@ -12,26 +13,29 @@ pgnEl = $('#pgn');
 // }
 //NEW CODE ABOVE
 
-
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
-// var onDragStart = function(source, piece, position, orientation) {
-// if (game.game_over() === true ||
-//     (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-//     (game.turn() === 'b' && piece.search(/^w/) !== -1)) 
-//    {
-//   return false;
-// }
-// }; 
+if(!testingAI) {
+  var onDragStart = function(source, piece, position, orientation) {
+  if (game.game_over() === true ||
+      (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+      (game.turn() === 'b' && piece.search(/^w/) !== -1)) 
+    {
+    return false;
+  }
+  }; 
+}
 //this version does not allow for move in draw, checkmate, or if the move 
 //from the black player
 
-var onDragStart = function (source, piece, position, orientation) {
-  if (game.in_checkmate() === true || game.in_draw() === true ||
-      piece.search(/^b/) !== -1) {
-      return false;
-  }
-}; 
+if(testingAI) {
+  var onDragStart = function (source, piece, position, orientation) {
+    if (game.in_checkmate() === true || game.in_draw() === true ||
+        piece.search(/^b/) !== -1) {
+        return false;
+    }
+  }; 
+}
 
 //to pick the position of the move.
 
@@ -66,14 +70,12 @@ if (move === null) {
 }
 
 //make a random legal move for black player
-window.setInterval(makeRandomMove,);
+if(testingAI) {
+  window.setInterval(makeRandomMove,);
+}
 
 updateStatus();
-};
-
-
-
-
+}
 
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
@@ -127,12 +129,8 @@ onDrop: onDrop,
 onSnapEnd: onSnapEnd
 };
 board = ChessBoard('board', cfg);
-
+board.position(game.fen());
 updateStatus();
-
-updateStatus();
-
-
 
 
 
