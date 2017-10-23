@@ -4,17 +4,17 @@ h1 {
 }
 
 .playButton {
-	margin-left: 30%;
+	margin-left: 10%;
 	
 }
 .playButton input {
     height: 180px;
-    width: 220px;
+    width: 300px;
     font-size: 22px;
 }
 
 .gameRulesButton {
-	margin-right: 30%;
+	margin-right: 20%;
 	
 }
 
