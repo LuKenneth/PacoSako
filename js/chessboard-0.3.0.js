@@ -1166,7 +1166,7 @@ function dropDraggedPieceOnSquare(square) {
   //modified LKP: 10/14/17
   if(newPosition[square]!=null) {
     var TARGET_PIECE = newPosition[square];
-    make_union(newPosition, square, DRAGGED_PIECE, TARGET_PIECE);
+    newPosition[square] = make_union(DRAGGED_PIECE, TARGET_PIECE);
   }
   else {
     newPosition[square] = DRAGGED_PIECE;
@@ -1205,11 +1205,11 @@ LKP: 10/14/17
 Takes two pieces, identifies which is white and which is black
 and properly merges them.
 */
-function make_union(newPosition, square, DRAGGED_PIECE, TARGET_PIECE) {
+function make_union(DRAGGED_PIECE, TARGET_PIECE) {
   var white_piece = TARGET_PIECE[0] === 'w' ? TARGET_PIECE : DRAGGED_PIECE;
   var black_piece = TARGET_PIECE[0] === "b" ? TARGET_PIECE : DRAGGED_PIECE;
   var union_piece = white_piece + "u" + black_piece;
-  newPosition[square] = union_piece;
+  return union_piece;
 }
 
 function beginDraggingPiece(source, piece, x, y) {
@@ -1498,7 +1498,7 @@ widget.position = function(position, useAnimation) {
     //modified: LKP 10/14/17
     //commenting this out because it gets called for the second time here
     //which makes the unions disappear after they are made
-    setCurrentPosition(position);
+    //setCurrentPosition(position);
   }
   // instant update
   else {

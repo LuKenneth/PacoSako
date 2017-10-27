@@ -48,7 +48,7 @@ updateStatus();
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
   //if this is commented out, those 3 ^ dont work, but unions do
-//board.position(game.fen());
+  board.position(game.fen());
 };
 
 var updateStatus = function() {
