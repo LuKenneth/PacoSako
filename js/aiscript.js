@@ -1,3 +1,5 @@
+//AII author Brandon Velic this class is same as script
+//edited to only be for AI player interaction
 var game = new Chess(),
 board,
 statusEl = $('#status'),
@@ -36,8 +38,8 @@ var makeRandomMove = function()
    game.move(newMove[random]);
 
    
-   board.position(game.fen);
-   game.turn()='w';
+   board.position(game.fen());
+   //game.turn()='w';
 }
   updateStatus();
 };
@@ -56,13 +58,13 @@ var move = game.move({
 if (move === null) {
   return 'snapback';
 }
-
-//make a random legal move for black player
-
-  window.setInterval(makeRandomMove,250);
-
-
 updateStatus();
+//make a random legal move for black player
+  if (game.turn() ==='b'){
+  window.setInterval(makeRandomMove,50);
+  }
+
+
 }
 }
 // update the board position after the piece snap 
