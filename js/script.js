@@ -81,6 +81,8 @@ else {
 
 statusEl.html(status);
 fenEl.html(game.fen());
+//modified LKP: 10/31/2017 loading the fen string puts the unions in the board[]
+game.load(game.fen());
 pgnEl.html(game.pgn());
 };
 
