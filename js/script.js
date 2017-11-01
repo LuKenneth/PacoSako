@@ -55,6 +55,8 @@ var updateStatus = function() {
 var status = '';
 
 var moveColor = 'White';
+//TAG: MODIFY
+//need to modify for when you chain unions
 if (game.turn() === 'b') {
   moveColor = 'Black';
 }
