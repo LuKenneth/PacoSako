@@ -1206,10 +1206,25 @@ Takes two pieces, identifies which is white and which is black
 and properly merges them.
 */
 function make_union(DRAGGED_PIECE, TARGET_PIECE) {
-  var white_piece = TARGET_PIECE[0] === 'w' ? TARGET_PIECE : DRAGGED_PIECE;
-  var black_piece = TARGET_PIECE[0] === "b" ? TARGET_PIECE : DRAGGED_PIECE;
-  var union_piece = white_piece + "u" + black_piece;
+
+  var union_piece = "";
+  //make sure target isn't a union
+  if(TARGET_PIECE.indexOf('u') == -1) {
+    var white_piece = TARGET_PIECE[0] === 'w' ? TARGET_PIECE : DRAGGED_PIECE;
+    var black_piece = TARGET_PIECE[0] === "b" ? TARGET_PIECE : DRAGGED_PIECE;
+    union_piece = white_piece + "u" + black_piece;
+  }
+  else {
+    //wPubP
+    var dragged_is_white = DRAGGED_PIECE[0] == 'u';
+    var index_to_replace = dragged_is_white ? 1 : 4;
+    union_piece = TARGET_PIECE.replaceAt(index_to_replace, DRAGGED_PIECE[1]);
+  }
   return union_piece;
+}
+
+String.prototype.replaceAt=function(index, replacement) {
+  return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
 
 function beginDraggingPiece(source, piece, x, y) {
