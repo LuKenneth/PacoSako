@@ -1514,6 +1514,7 @@ widget.position = function(position, useAnimation) {
     //commenting this out because it gets called for the second time here
     //which makes the unions disappear after they are made
     setCurrentPosition(position);
+    //modified: LKP 11/9/17 ^ no longer true, keep this line
   }
   // instant update
   else {
