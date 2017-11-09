@@ -1216,7 +1216,7 @@ function make_union(DRAGGED_PIECE, TARGET_PIECE) {
   }
   else {
     //wPubP
-    var dragged_is_white = DRAGGED_PIECE[0] == 'u';
+    var dragged_is_white = DRAGGED_PIECE[0] == 'w';
     var index_to_replace = dragged_is_white ? 1 : 4;
     union_piece = TARGET_PIECE.replaceAt(index_to_replace, DRAGGED_PIECE[1]);
   }
