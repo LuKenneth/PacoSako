@@ -1303,7 +1303,22 @@ function updateDraggedPiece(x, y) {
   DRAGGED_PIECE_LOCATION = location;
 }
 
-function stopDraggedPiece(location) {
+/*
+LKP 11/9/17
+Finds and returns which part of the union needs to get replaced
+*/
+function get_replaced_piece(captured) {
+  
+  //wPubP
+  var piece_index = game.turn() == 'w' ? 0 : 3;
+  //return captured[piece_index].substr(piece_index, piece_index + 2);
+return "wP";
+}
+
+//modified LKP: 11/9/17
+//adding e to parameters
+function stopDraggedPiece(location, e) {
+  var captured_piece = CURRENT_POSITION[location];
   // determine what the action should be
   var action = 'drop';
   if (location === 'offboard' && cfg.dropOffBoard === 'snapback') {
@@ -1317,7 +1332,8 @@ function stopDraggedPiece(location) {
   if (cfg.hasOwnProperty('onDrop') === true &&
     typeof cfg.onDrop === 'function') {
     var newPosition = deepCopy(CURRENT_POSITION);
-
+    //modified LKP 11/9/17
+    captured_piece = newPosition[location];
     // source piece is a spare piece and position is off the board
     //if (DRAGGED_PIECE_SOURCE === 'spare' && location === 'offboard') {...}
     // position has not changed; do nothing
@@ -1360,6 +1376,16 @@ function stopDraggedPiece(location) {
   }
   else if (action === 'drop') {
     dropDraggedPieceOnSquare(location);
+  }
+
+  //modified LKP 11/9/17
+  if(captured_piece != null && captured_piece != undefined) {
+    if(captured_piece.indexOf('u') != -1) {
+      var replaced_piece = get_replaced_piece(captured_piece);
+      //adding the location and the replaced_piece passes both pieces of information,
+      //as well as lets you know that it's coming from a union
+      beginDraggingPiece(location+replaced_piece, replaced_piece, e.pageX, e.pageY);
+    }
   }
 }
 
@@ -1646,7 +1672,8 @@ function mouseupWindow(e) {
   // get the location
   var location = isXYOnSquare(e.pageX, e.pageY);
 
-  stopDraggedPiece(location);
+  //modified LKP: 11/9/17
+  stopDraggedPiece(location, e);
 }
 
 function touchendWindow(e) {
@@ -1657,7 +1684,8 @@ function touchendWindow(e) {
   var location = isXYOnSquare(e.originalEvent.changedTouches[0].pageX,
     e.originalEvent.changedTouches[0].pageY);
 
-  stopDraggedPiece(location);
+  //modified LKP: 11/9/17
+  stopDraggedPiece(location, e);
 }
 
 function mouseenterSquare(e) {
@@ -1786,6 +1814,9 @@ function init() {
 
 // go time
 init();
+
+window.ChessBoard.beginDraggingPiece = beginDraggingPiece;
+window.ChessBoard.fenToPieceCode = fenToPieceCode;
 
 // return the widget object
 return widget;

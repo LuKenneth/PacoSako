@@ -1,8 +1,34 @@
-var game = new Chess('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
+var game = new Chess('rnbqkbnr/ppppp1p1/7p/8/5Pup2/7N/PPPPPP1P/RNBQKB1R w KQkq - 0 4'),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
+
+var mouseX;
+var mouseY;
+
+//modified LKP: 11/9/17
+// event handler function
+function handler(e) {
+  e = e || window.event;
+
+  var pageX = e.pageX;
+  var pageY = e.pageY;
+
+  // IE 8
+  if (pageX === undefined) {
+      pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+      pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+  }
+
+  mouseX = pageX;
+  mouseY = pageY;
+}
+
+// attach handler to the click event of the document
+if (document.attachEvent) document.attachEvent('mousemove', handler);
+else document.addEventListener('mousemove', handler);
+
 
 // setup my socket client
 // var socket = io();
@@ -41,8 +67,24 @@ if (move === null) {
   return 'snapback';
 }
 
+//TAG: MODIFY LKP 11/9/17
+//I think this is where I will need to put the code
+//to beginDraggingPiece to prepare for chaining unions
+
+//nup
+//wNubP
+// var move_piece = move.color + move.piece.toUpperCase();
+
 updateStatus();
+// if(move.captured != null && move.captured != undefined) {
+//   if(move.captured.indexOf('u') != -1) {
+//     var move_piece = get_replaced_piece(move.captured);
+//     window.ChessBoard.beginDraggingPiece(source, move_piece, mouseX, mouseY);
+//   }
+// }
 };
+
+
 
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
@@ -85,7 +127,7 @@ else {
 statusEl.html(status);
 fenEl.html(game.fen());
 //modified LKP: 10/31/2017 loading the fen string puts the unions in the board[]
-//game.load(game.fen());
+game.load(game.fen());
 pgnEl.html(game.pgn());
 };
 
