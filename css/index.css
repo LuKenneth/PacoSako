@@ -3,22 +3,12 @@ h1 {
 
 }
 
-.playButton {
-	margin-left: 30%;
-	
-}
-.playButton input {
-    height: 180px;
-    width: 220px;
-    font-size: 22px;
-}
-
-.gameRulesButton {
-	margin-right: 30%;
+.gameRulesButton, .lobbyButton, .playButton, .testGameButton {
+	margin-left: 23%;
 	
 }
 
-.gameRulesButton input {
+.gameRulesButton input, .lobbyButton input, .playButton input, .testGameButton input {
     height: 180px;
     width: 220px;
     font-size: 22px;
@@ -26,13 +16,17 @@ h1 {
 }
 
 .playButton,
-.gameRulesButton {
+.gameRulesButton,
+.testGameButton,
+.lobbyButton {
 	text-align: center;
     display: inline-block;
 }
 
 .playButton:hover,
-.gameRulesButton:hover {
+.gameRulesButton:hover,
+.testGameButton:hover,
+.lobbyButton:hover {
     background: #fff;
 	
 }
