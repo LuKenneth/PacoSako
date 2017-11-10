@@ -1385,6 +1385,7 @@ function stopDraggedPiece(location, e) {
       //adding the location and the replaced_piece passes both pieces of information,
       //as well as lets you know that it's coming from a union
       beginDraggingPiece(location+replaced_piece, replaced_piece, e.pageX, e.pageY);
+      game.put({type: replaced_piece[1].toLowerCase(), color: game.turn()}, "hand");
     }
   }
 }
