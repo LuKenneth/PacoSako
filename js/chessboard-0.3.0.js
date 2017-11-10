@@ -1311,8 +1311,8 @@ function get_replaced_piece(captured) {
   
   //wPubP
   var piece_index = game.turn() == 'w' ? 0 : 3;
-  //return captured[piece_index].substr(piece_index, piece_index + 2);
-return "wP";
+  return captured.substr(piece_index, piece_index + 2);
+
 }
 
 //modified LKP: 11/9/17
