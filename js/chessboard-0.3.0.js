@@ -438,11 +438,12 @@ function expandConfig() {
     cfg.draggable = true;
   }
 
-  // default piece theme is wikipedia
+  // default piece theme is 
+  //Overrided with images from the game rules pdf
   if (cfg.hasOwnProperty('pieceTheme') !== true ||
       (typeof cfg.pieceTheme !== 'string' &&
        typeof cfg.pieceTheme !== 'function')) {
-    cfg.pieceTheme = 'img/chesspieces/wikipedia/{piece}.png';
+    cfg.pieceTheme = 'img/chesspieces/PacoSakoGameRules/{piece}.png';
   }
 
   // animation speeds
@@ -596,7 +597,6 @@ function buildBoard(orientation) {
     html += '<div class="' + CSS.row + '">';
     for (var j = 0; j < 8; j++) {
       var square = alpha[j] + row;
-
       html += '<div class="' + CSS.square + ' ' + CSS[squareColor] + ' ' +
         'square-' + square + '" ' +
         'style="width: ' + SQUARE_SIZE + 'px; height: ' + SQUARE_SIZE + 'px" ' +
@@ -651,16 +651,25 @@ function buildPieceImgSrc(piece) {
   return '';
 }
 
-function buildPiece(piece, hidden, id) {
+//TAG: MODIFY
+function buildPiece(piece, hidden, id, union) {
   var html = '<img src="' + buildPieceImgSrc(piece) + '" ';
   if (id && typeof id === 'string') {
     html += 'id="' + id + '" ';
   }
+
+  var union_size = SQUARE_SIZE/1.5;
+  var union_style_black = 'style="width: ' + union_size + 'px;' + 'float: right;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
+  var union_style_white = 'style="width: ' + union_size + 'px;' + 'float: left;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
+  var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
+  var style = standard_style;
+  if (union) {
+    style = (piece[0]=='b') ? union_style_black : union_style_white;
+  }
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
   'data-piece="' + piece + '" ' +
-  'style="width: ' + SQUARE_SIZE + 'px;' +
-  'height: ' + SQUARE_SIZE + 'px;';
+  style;
   if (hidden === true) {
     html += 'display:none;';
   }

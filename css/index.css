@@ -1,0 +1,32 @@
+h1 {
+    text-align: center;
+
+}
+
+.gameRulesButton, .lobbyButton, .playButton, .testGameButton {
+	margin-left: 23%;
+	
+}
+
+.gameRulesButton input, .lobbyButton input, .playButton input, .testGameButton input {
+    height: 180px;
+    width: 220px;
+    font-size: 22px;
+	
+}
+
+.playButton,
+.gameRulesButton,
+.testGameButton,
+.lobbyButton {
+	text-align: center;
+    display: inline-block;
+}
+
+.playButton:hover,
+.gameRulesButton:hover,
+.testGameButton:hover,
+.lobbyButton:hover {
+    background: #fff;
+	
+}

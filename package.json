@@ -2,7 +2,7 @@
   "name": "pacosako",
   "version": "1.0.0",
   "description": "Peaceful chess. A game created for John Carroll University's CS470 course.",
-  "main": "index.html",
+  "main": "lobby.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +18,16 @@
   "homepage": "https://github.com/LuKenneth/PacoSako#readme",
   "dependencies": {
     "chess.js": "^0.10.2",
-    "requirejs": "^2.3.5"
-  }
+    "express": "^4.15.5",
+    "requirejs": "^2.3.5",
+    "socket.io": "^2.0.4"
+  },
+  "engines": {
+    "node": "6.11.3"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "example",
+    "heroku"
+  ]
 }
