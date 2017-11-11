@@ -2,7 +2,7 @@
   "name": "pacosako",
   "version": "1.0.0",
   "description": "Peaceful chess. A game created for John Carroll University's CS470 course.",
-  "main": "index.html",
+  "main": "lobby.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,9 @@
     "requirejs": "^2.3.5",
     "winjs": "^4.4.3"
   },
+  "engines": {
+	"node": "6.11.3"
+  }
   "devDependencies": {
     "surge": "^0.19.0"
   }

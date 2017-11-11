@@ -24,8 +24,6 @@ var gameCollection = new function () {
 
 };
 
-//Creates a game and sets player one to the user who created it
-//
 function buildGame(socket) {
 
 
@@ -45,8 +43,6 @@ function buildGame(socket) {
 
 }
 
-// Removes/Delets the game if you are the creator of the game
-// Records that the 2nd player leaves
 function killGame(socket) {
 
     var notInGame = true;
@@ -82,9 +78,6 @@ function killGame(socket) {
 
 
 }
-
-// Creates game if there are no games or cannot find a game to join
-// Otherwise it lets a user join a random game as Player2
 
 function gameSeeker(socket) {
     ++loopLimit;
@@ -173,7 +166,7 @@ io.on('connection', function (socket) {
         }
     });
 
-	//when the user clicks Join Game.. perform this
+
     socket.on('joinGame', function () {
         console.log(socket.username + " wants to join a game");
 
@@ -199,6 +192,7 @@ io.on('connection', function (socket) {
             gameSeeker(socket);
 
         }
+
     });
 
 
