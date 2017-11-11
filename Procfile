@@ -1,1 +1,1 @@
-web: node lobby.js
+web: node index.js
