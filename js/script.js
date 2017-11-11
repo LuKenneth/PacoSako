@@ -1,4 +1,4 @@
-var game = new Chess('rnbqkbnr/ppppp1p1/7p/8/5Pup2/7N/PPPPPP1P/RNBQKB1R w KQkq - 0 4'),
+var game = new Chess('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
