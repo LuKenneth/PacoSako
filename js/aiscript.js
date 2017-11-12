@@ -56,7 +56,7 @@ var makeRandomMove = function()
   });*/
   
   game.move(newMove[random]);
-   statusEl.html(newMove[random] + ' '+ fixed + ' '+ part1 + ' ' + part2);
+  // statusEl.html(newMove[random] + ' '+ fixed + ' '+ part1 + ' ' + part2);
    board.position(game.fen());
    
 }
@@ -124,7 +124,7 @@ else {
 }
 
 
-//statusEl.html(status);
+statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
 
