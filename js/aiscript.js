@@ -1,6 +1,6 @@
 //AI author BV this class is same as script
 //edited to only be for AI player interaction
-var game = new Chess('rnbqkbnr/pppppppp/8/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 0 1'),
+var game = new Chess('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
@@ -38,9 +38,25 @@ var makeRandomMove = function()
   var newMove = game.moves();
   
    var random = [Math.floor(Math.random() * newMove.length)];
-   game.move(newMove[random]);
 
    
+   /*//need to transform captured into union to fool the code...
+   var moveString = newMove[random];
+  var fixed = moveString.replace("x","u");
+  var parts = fixed.split('u');
+  var part1 = parts[0];
+  var part2 = parts[1];
+
+  //going to replicate the onDrop function but for AI
+  //will pick the string apart, only issue is finding the source
+  var move = game.move({
+    from: part1,
+    to: part2,
+    promotion: 'q'
+  });*/
+  
+  game.move(newMove[random]);
+   statusEl.html(newMove[random] + ' '+ fixed + ' '+ part1 + ' ' + part2);
    board.position(game.fen());
    
 }
@@ -108,7 +124,7 @@ else {
 }
 
 
-statusEl.html(status);
+//statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
 

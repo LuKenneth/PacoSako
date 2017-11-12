@@ -1,4 +1,4 @@
-var game = new Chess('rnbqkbnr/ppppp1p1/7p/8/5Pup2/7N/PPPPPP1P/RNBQKB1R w KQkq - 0 4'),
+var game = new Chess('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBKR w KQkq - 0 4'),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
@@ -61,6 +61,7 @@ var move = game.move({
   to: target,
   promotion: 'q' // NOTE: always promote to a queen for example simplicity
 });
+statusEl.html(source);
 
 // illegal move
 if (move === null) {
@@ -124,7 +125,7 @@ else {
   }
 }
 
-statusEl.html(status);
+//statusEl.html(status);
 fenEl.html(game.fen());
 //modified LKP: 10/31/2017 loading the fen string puts the unions in the board[]
 game.load(game.fen());
