@@ -119,10 +119,12 @@ else if (game.in_draw() === true) {
 else {
   status = moveColor + ' to move';
 
+  //modified LKP: 11/15/17
+  //disable check
   // check?
-  if (game.in_check() === true) {
-    status += ', ' + moveColor + ' is in check';
-  }
+  // if (game.in_check() === true) {
+  //   status += ', ' + moveColor + ' is in check';
+  // }
 }
 
 statusEl.html(status);
