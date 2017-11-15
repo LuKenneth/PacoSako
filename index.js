@@ -38,6 +38,7 @@ function buildGame(socket) {
     io.emit('gameCreated', {
         username: socket.username,
         gameId: gameObject.id
+
     });
 
 
@@ -92,13 +93,7 @@ function gameSeeker(socket) {
             gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
             socket.emit('joinSuccess', {
                 gameId: gameCollection.gameList[rndPick]['gameObject']['id']
-            })
-			
-			 //Author Nick Krotine nkrotine18@jcu.edu 11/15/2017
-            //Waits two seconds before executing a re-route from the lobby page to the chess game page after successfully joining game
-            setTimeout(function(){
-                window.location.replace("game.html");
-            }, 2000);;
+            });
 
             console.log(socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
