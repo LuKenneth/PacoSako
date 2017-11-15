@@ -1,4 +1,4 @@
-var game = new Chess('rnbqkbnr/ppppp1p1/7p/8/5Pup2/7N/PPPPPP1P/RNBQKB1R w KQkq - 0 4'),
+var game = new Chess('1nbqkRub2/r2pp1Bup1/1pp4Qun/5P1Rur/P4Nup1p/4P3/1PupPP1P1P/1N2KB2 w - - 1 21'),
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
@@ -43,7 +43,8 @@ else document.addEventListener('mousemove', handler);
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
 
-//modified
+//modified LKP 11/15/17
+if(game.get_is_replacing()) { return false; }
 if(game.game_over() === false && piece.search(/u/) !== -1) {
   return true;
 }
