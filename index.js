@@ -39,7 +39,12 @@ function buildGame(socket) {
         username: socket.username,
         gameId: gameObject.id
 
-    });
+    })
+    //Author Nick Krotine nkrotine18@jcu.edu 11/15/2017
+    //Waits two seconds before executing a re-route from the lobby page to the chess game page after successfully joining game
+    setTimeout(function(){
+        window.location.replace("game.html");
+    }, 2000);
 
 
 }
