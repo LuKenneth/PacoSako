@@ -197,7 +197,7 @@ io.on('connection', function (socket) {
             gameSeeker(socket);
             
         }
-             window.location.href = "game.html";
+             socket.window.location.href = "game.html";
     });
 
 
