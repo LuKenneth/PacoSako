@@ -1,3 +1,6 @@
+//setTimeout(function(){
+  //  window.location.href = "game.html";;
+//}, 2000);
 // Setup basic express server
 var express = require('express');
 var app = express();
@@ -36,12 +39,6 @@ function buildGame(socket) {
     
     console.log("Game Created by " + socket.username + " w/ " + gameObject.id);
 
-      //Author Nick Krotine nkrotine18@jcu.edu 11/15/2017
-        //Waits two seconds before executing a re-route from the lobby page to the chess game page after successfully joining game
-        setTimeout(function(){
-            window.location.replace("game.html");
-        }, 2000)
-        
     io.emit('gameCreated', {
         username: socket.username,
         gameId: gameObject.id
