@@ -195,9 +195,11 @@ io.on('connection', function (socket) {
 
 
             gameSeeker(socket);
-
+            
         }
-
+        setTimeout(function(){
+             window.location.href = "game.html";
+        }, 2000);
     });
 
 
