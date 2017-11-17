@@ -1,5 +1,5 @@
 //setTimeout(function(){
-  //  window.location.href = "game.html";;
+  //  window.location.href = "game.html";
 //}, 2000);
 // Setup basic express server
 var express = require('express');
@@ -42,7 +42,12 @@ function buildGame(socket) {
     io.emit('gameCreated', {
         username: socket.username,
         gameId: gameObject.id
-    });
+        
+    })
+    
+setTimeout(function(){
+  window.location.href = "game.html";
+}, 2000);
 
 
 }
