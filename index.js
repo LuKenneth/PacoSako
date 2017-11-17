@@ -43,11 +43,7 @@ function buildGame(socket) {
         username: socket.username,
         gameId: gameObject.id
         
-    })
-    
-setTimeout(function(){
-  window.location.href = "game.html";
-}, 2000);
+    });
 
 
 }
