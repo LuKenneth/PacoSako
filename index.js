@@ -44,7 +44,8 @@ function buildGame(socket) {
         gameId: gameObject.id
         
     });
-
+    socket.window.location.href = "game.html";        
+    
 
 }
 
@@ -176,7 +177,6 @@ io.on('connection', function (socket) {
         console.log(socket.username + " wants to join a game");
 
         var alreadyInGame = false;
-
         for (var i = 0; i < gameCollection.totalGameCount; i++) {
             var plyr1Tmp = gameCollection.gameList[i]['gameObject']['playerOne'];
             var plyr2Tmp = gameCollection.gameList[i]['gameObject']['playerTwo'];
@@ -197,7 +197,6 @@ io.on('connection', function (socket) {
             gameSeeker(socket);
             
         }
-             socket.window.location.href = "game.html";
     });
 
 
