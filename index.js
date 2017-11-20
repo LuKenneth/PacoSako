@@ -1,5 +1,5 @@
 //setTimeout(function(){
-  //  window.location.href = "game.html";
+  //  window.location.href = "www.facebook.com";
 //}, 2000);
 // Setup basic express server
 var express = require('express');
@@ -9,6 +9,8 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3001;
 var loopLimit = 0;
+
+window.location.href = "www.facebook.com";
 
 server.listen(port, function () {
     console.log('Server listening at port %d', port);
@@ -44,8 +46,7 @@ function buildGame(socket) {
         gameId: gameObject.id
         
     });
-    socket.window.location.href = "game.html";        
-    
+
 
 }
 
