@@ -34,12 +34,17 @@ function validSquare(square) {
 }
 
 function validPieceCode(code) {
+  //modified
+  return true;
   if (typeof code !== 'string') return false;
+  
   return (code.search(/^[bw][KQRNBP]$/) !== -1);
 }
 
 // TODO: this whole function could probably be replaced with a single regex
 function validFen(fen) {
+  //modified
+  //return true;
   if (typeof fen !== 'string') return false;
 
   // cut off any move, castling, etc info from the end
@@ -52,9 +57,9 @@ function validFen(fen) {
 
   // check the piece sections
   for (var i = 0; i < 8; i++) {
+    //modified
     if (chunks[i] === '' ||
-        chunks[i].length > 8 ||
-        chunks[i].search(/[^kqrbnpKQRNBP1-8]/) !== -1) {
+        chunks[i].search(/[^ukqrbnpKQRNBP1-8]/) !== -1) {
       return false;
     }
   }
@@ -76,8 +81,14 @@ function validPositionObject(pos) {
   return true;
 }
 
+//TAG: MODIFY
+//converts fen to piece and piece to fen
 // convert FEN piece code to bP, wK, etc
 function fenToPieceCode(piece) {
+  //a union
+  if(piece.indexOf("u") > -1) {
+    return 'w' + piece[0].toUpperCase() + 'ub' + piece[2].toUpperCase();
+  }
   // black piece
   if (piece.toLowerCase() === piece) {
     return 'b' + piece.toUpperCase();
@@ -87,9 +98,15 @@ function fenToPieceCode(piece) {
   return 'w' + piece.toUpperCase();
 }
 
+//TAG: MODIFY
 // convert bP, wK, etc code to FEN structure
 function pieceCodeToFen(piece) {
   var tmp = piece.split('');
+
+  //union
+  if (tmp.indexOf("u") > -1) {
+    return tmp[1].toUpperCase() + "u" + tmp[4].toLowerCase();
+  }
 
   // white piece
   if (tmp[0] === 'w') {
@@ -102,7 +119,9 @@ function pieceCodeToFen(piece) {
 
 // convert FEN string to position object
 // returns false if the FEN string is invalid
+//fen is getting filtered before it reaches here. we never see a 'u'
 function fenToObj(fen) {
+  //modified
   if (validFen(fen) !== true) {
     return false;
   }
@@ -120,6 +139,8 @@ function fenToObj(fen) {
     var colIndex = 0;
 
     // loop through each character in the FEN section
+    //console.log(fen);
+    //console.log(row);
     for (var j = 0; j < row.length; j++) {
       // number / empty squares
       if (row[j].search(/[1-8]/) !== -1) {
@@ -129,7 +150,16 @@ function fenToObj(fen) {
       // piece
       else {
         var square = COLUMNS[colIndex] + currentRow;
-        position[square] = fenToPieceCode(row[j]);
+
+         //modified
+        if(row[j+1]=='u') {
+          var union_piece = row[j] + row[j+1] + row[j+2];
+          position[square] = fenToPieceCode(union_piece);
+          j = j+2;
+        } else {
+          position[square] = fenToPieceCode(row[j]);
+        }
+        
         colIndex++;
       }
     }
@@ -144,7 +174,7 @@ function fenToObj(fen) {
 // returns false if the obj is not a valid position object
 function objToFen(obj) {
   if (validPositionObject(obj) !== true) {
-    return false;
+    //return false;
   }
 
   var fen = '';
@@ -474,7 +504,10 @@ function expandConfig() {
       CURRENT_POSITION = deepCopy(START_POSITION);
     }
 
-    else if (validFen(cfg.position) === true) {
+    // else if (validFen(cfg.position) === true) {
+    //   CURRENT_POSITION = fenToObj(cfg.position);
+    // }
+    else if ( true) {
       CURRENT_POSITION = fenToObj(cfg.position);
     }
 
@@ -653,6 +686,7 @@ function buildPieceImgSrc(piece) {
 
 //TAG: MODIFY
 function buildPiece(piece, hidden, id, union) {
+  // console.log(JSON.stringify(piece));
   var html = '<img src="' + buildPieceImgSrc(piece) + '" ';
   if (id && typeof id === 'string') {
     html += 'id="' + id + '" ';
@@ -664,7 +698,7 @@ function buildPiece(piece, hidden, id, union) {
   var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
   var style = standard_style;
   if (union) {
-    style = (piece[0]=='b') ? union_style_black : union_style_white;
+    //style = (piece[0]=='b') ? union_style_black : union_style_white;
   }
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
@@ -1070,7 +1104,8 @@ function removeSquareHighlights() {
 
 function snapbackDraggedPiece() {
   // there is no "snapback" for spare pieces
-  if (DRAGGED_PIECE_SOURCE === 'spare') {
+  //modified LKP: 11/15/17
+  if (DRAGGED_PIECE_SOURCE === 'spare' || DRAGGED_PIECE_SOURCE == 'hand') {
     trashDraggedPiece();
     return;
   }
@@ -1129,7 +1164,15 @@ function dropDraggedPieceOnSquare(square) {
   // update position
   var newPosition = deepCopy(CURRENT_POSITION);
   delete newPosition[DRAGGED_PIECE_SOURCE];
-  newPosition[square] = DRAGGED_PIECE;
+  //modified LKP: 10/14/17
+  if(newPosition[square]!=null) {
+    var TARGET_PIECE = newPosition[square];
+    newPosition[square] = make_union(DRAGGED_PIECE, TARGET_PIECE);
+  }
+  else {
+    newPosition[square] = DRAGGED_PIECE;
+  }
+
   setCurrentPosition(newPosition);
 
   // get target square information
@@ -1156,6 +1199,33 @@ function dropDraggedPieceOnSquare(square) {
 
   // set state
   DRAGGING_A_PIECE = false;
+}
+
+/*
+LKP: 10/14/17
+Takes two pieces, identifies which is white and which is black
+and properly merges them.
+*/
+function make_union(DRAGGED_PIECE, TARGET_PIECE) {
+
+  var union_piece = "";
+  //make sure target isn't a union
+  if(TARGET_PIECE.indexOf('u') == -1) {
+    var white_piece = TARGET_PIECE[0] === 'w' ? TARGET_PIECE : DRAGGED_PIECE;
+    var black_piece = TARGET_PIECE[0] === "b" ? TARGET_PIECE : DRAGGED_PIECE;
+    union_piece = white_piece + "u" + black_piece;
+  }
+  else {
+    //wPubP
+    var dragged_is_white = DRAGGED_PIECE[0] == 'w';
+    var index_to_replace = dragged_is_white ? 1 : 4;
+    union_piece = TARGET_PIECE.replaceAt(index_to_replace, DRAGGED_PIECE[1]);
+  }
+  return union_piece;
+}
+
+String.prototype.replaceAt=function(index, replacement) {
+  return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
 }
 
 function beginDraggingPiece(source, piece, x, y) {
@@ -1234,7 +1304,22 @@ function updateDraggedPiece(x, y) {
   DRAGGED_PIECE_LOCATION = location;
 }
 
-function stopDraggedPiece(location) {
+/*
+LKP 11/9/17
+Finds and returns which part of the union needs to get replaced
+*/
+function get_replaced_piece(captured) {
+  
+  //wPubP
+  var piece_index = game.turn() == 'w' ? 0 : 3;
+  return captured.substr(piece_index, piece_index + 2);
+
+}
+
+//modified LKP: 11/9/17
+//adding e to parameters
+function stopDraggedPiece(location, e) {
+  var captured_piece = CURRENT_POSITION[location];
   // determine what the action should be
   var action = 'drop';
   if (location === 'offboard' && cfg.dropOffBoard === 'snapback') {
@@ -1248,7 +1333,8 @@ function stopDraggedPiece(location) {
   if (cfg.hasOwnProperty('onDrop') === true &&
     typeof cfg.onDrop === 'function') {
     var newPosition = deepCopy(CURRENT_POSITION);
-
+    //modified LKP 11/9/17
+    captured_piece = newPosition[location];
     // source piece is a spare piece and position is off the board
     //if (DRAGGED_PIECE_SOURCE === 'spare' && location === 'offboard') {...}
     // position has not changed; do nothing
@@ -1291,6 +1377,18 @@ function stopDraggedPiece(location) {
   }
   else if (action === 'drop') {
     dropDraggedPieceOnSquare(location);
+  }
+  game.set_is_replacing(false);
+  //modified LKP 11/9/17
+  if(captured_piece != null && captured_piece != undefined) {
+    if(captured_piece.indexOf('u') != -1) {
+      var replaced_piece = get_replaced_piece(captured_piece);
+      //adding the location and the replaced_piece passes both pieces of information,
+      //as well as lets you know that it's coming from a union
+      beginDraggingPiece(location+replaced_piece, replaced_piece, e.pageX, e.pageY);
+      game.put({type: replaced_piece[1].toLowerCase(), color: game.turn()}, "hand");
+      game.set_is_replacing(true);
+    }
   }
 }
 
@@ -1422,14 +1520,17 @@ widget.position = function(position, useAnimation) {
   }
 
   // convert FEN to position object
-  if (validFen(position) === true) {
+  // if (validFen(position) === true) {
+  //   position = fenToObj(position);
+  // }
+  if (true) {
     position = fenToObj(position);
   }
 
   // validate position object
   if (validPositionObject(position) !== true) {
     error(6482, 'Invalid value passed to the position method.', position);
-    return;
+    //return;
   }
 
   if (useAnimation === true) {
@@ -1438,7 +1539,11 @@ widget.position = function(position, useAnimation) {
       CURRENT_POSITION, position);
 
     // set the new position
+    //modified: LKP 10/14/17
+    //commenting this out because it gets called for the second time here
+    //which makes the unions disappear after they are made
     setCurrentPosition(position);
+    //modified: LKP 11/9/17 ^ no longer true, keep this line
   }
   // instant update
   else {
@@ -1570,7 +1675,8 @@ function mouseupWindow(e) {
   // get the location
   var location = isXYOnSquare(e.pageX, e.pageY);
 
-  stopDraggedPiece(location);
+  //modified LKP: 11/9/17
+  stopDraggedPiece(location, e);
 }
 
 function touchendWindow(e) {
@@ -1581,7 +1687,8 @@ function touchendWindow(e) {
   var location = isXYOnSquare(e.originalEvent.changedTouches[0].pageX,
     e.originalEvent.changedTouches[0].pageY);
 
-  stopDraggedPiece(location);
+  //modified LKP: 11/9/17
+  stopDraggedPiece(location, e);
 }
 
 function mouseenterSquare(e) {
@@ -1710,6 +1817,9 @@ function init() {
 
 // go time
 init();
+
+window.ChessBoard.beginDraggingPiece = beginDraggingPiece;
+window.ChessBoard.fenToPieceCode = fenToPieceCode;
 
 // return the widget object
 return widget;
