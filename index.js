@@ -1,6 +1,3 @@
-//setTimeout(function(){
-  //  window.location.href = "www.facebook.com";
-//}, 2000);
 // Setup basic express server
 var express = require('express');
 var app = express();

@@ -236,8 +236,10 @@ $(function () {
 
     $joinGame.click(function () {
         joinGame();
+
+        //This code calls a timer function which waits 2000 milliseconds or 2 seconds before re-routing to game.html
         setTimeout(function(){
-            window.location.href = "www.facebook.com";
+            window.location.href = "game.html";
         }, 2000);        
     })
 
