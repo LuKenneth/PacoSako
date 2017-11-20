@@ -1104,7 +1104,8 @@ function removeSquareHighlights() {
 
 function snapbackDraggedPiece() {
   // there is no "snapback" for spare pieces
-  if (DRAGGED_PIECE_SOURCE === 'spare') {
+  //modified LKP: 11/15/17
+  if (DRAGGED_PIECE_SOURCE === 'spare' || DRAGGED_PIECE_SOURCE == 'hand') {
     trashDraggedPiece();
     return;
   }
