@@ -10,7 +10,6 @@ var io = require('socket.io')(server);
 var port = process.env.PORT || 3001;
 var loopLimit = 0;
 
-window.location.href = "www.facebook.com";
 
 server.listen(port, function () {
     console.log('Server listening at port %d', port);
@@ -43,7 +42,8 @@ function buildGame(socket) {
 
     io.emit('gameCreated', {
         username: socket.username,
-        gameId: gameObject.id
+        gameId: gameObject.id,
+        window.location.href = "www.facebook.com"
         
     });
 

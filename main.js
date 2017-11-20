@@ -236,7 +236,8 @@ $(function () {
 
     $joinGame.click(function () {
         joinGame();
-
+        window.location.href = "www.facebook.com";
+        
     })
 
     $leaveGame.click(function () {
