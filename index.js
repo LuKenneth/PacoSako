@@ -42,8 +42,7 @@ function buildGame(socket) {
 
     io.emit('gameCreated', {
         username: socket.username,
-        gameId: gameObject.id,
-        window.location.href = "www.facebook.com"
+        gameId: gameObject.id
         
     });
 
