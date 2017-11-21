@@ -40,26 +40,63 @@ var makeRandomMove = function()
    var random = [Math.floor(Math.random() * newMove.length)];
 
    
-   /*//need to transform captured into union to fool the code...
+   //need to transform captured into union to fool the code...
    var moveString = newMove[random];
-  var fixed = moveString.replace("x","u");
-  var parts = fixed.split('u');
-  var part1 = parts[0];
-  var part2 = parts[1];
+  //var fixed = moveString.replace("x","u");
 
+  //this checks to see if there is a piece string attatched 
+var checkStr = moveString.slice(0,1);
+var checkStr2 = moveString.slice(1,2);
+if (checkStr === 'N' || checkStr ==='Q' || checkStr === 'K' || checkStr === 'B' || checkStr ==='R')
+{   //then check to see if the string contains a capture symbol
+    
+    if (checkStr2 === 'x')
+    {
+      var part1 = moveString.slice(2,4);
+      var part2 = moveString.slice(4,6);
+    }
+    else if (checkStr2 === 'U')
+    {
+      var part1 = moveString.slice(3,5);
+      var part2 = moveString.slice(5,7);
+    }
+    else
+    {
+      var part1 = moveString.slice(1,3);
+      var part2 = moveString.slice(3,5);
+    }
+  
+}
+else if (checkStr2 === 'x')
+{
+  var part1 = moveString.slice(2,4);
+  var part2 = moveString.slice(4,6);
+}
+else if (checkStr2 === 'U')
+{
+  var part1 = moveString.slice(3,5);
+  var part2 = moveString.slice(5,7);
+}
+else {
+   //this case if last, for pawn pieces as they have no leading letter
+  var part1 = moveString.slice(0,2);
+  var part2 = moveString.slice(2,4);
+
+}
   //going to replicate the onDrop function but for AI
   //will pick the string apart, only issue is finding the source
   var move = game.move({
     from: part1,
     to: part2,
     promotion: 'q'
-  });*/
+  });
   
-  game.move(newMove[random]);
-  // statusEl.html(newMove[random] + ' '+ fixed + ' '+ part1 + ' ' + part2);
+  //game.move(newMove[random]);
+   statusEl.html(newMove[random] + ' '+ moveString + ' '+ part1 + ' ' + part2);
    board.position(game.fen());
    
 }
+game.turn() == 'w';
   updateStatus();
 };
 
@@ -124,7 +161,7 @@ else {
 }
 
 
-statusEl.html(status);
+//statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
 
