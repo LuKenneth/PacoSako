@@ -91,8 +91,8 @@ else {
     promotion: 'q'
   });
   
-  //game.move(newMove[random]);
-   statusEl.html(newMove[random] + ' '+ moveString + ' '+ part1 + ' ' + part2);
+  //for debugging
+   //statusEl.html(newMove[random] + ' '+ moveString + ' '+ part1 + ' ' + part2);
    board.position(game.fen());
    
 }
@@ -115,8 +115,11 @@ if (move === null) {
   return 'snapback';
 }
 updateStatus();
+if (game.in_checkmate() === true) {
+  status = 'Game over, ' + moveColor + ' is in checkmate.';
+}
 //make a random legal move for black player
-  if (game.turn() ==='b'){
+  if (game.turn() ==='b' && game.in_checkmate != true){
   window.setInterval(makeRandomMove,250);
   }
 
@@ -152,16 +155,16 @@ else if (game.in_draw() === true) {
 
 // game still on
 else {
-  status = moveColor + ' to move';
-
+  status = moveColor + ' to move';}
+  //disable check 11/21/17 BV
   // check?
-  if (game.in_check() === true) {
-    status += ', ' + moveColor + ' is in check';
-  }
-}
+  //if (game.in_check() === true) {
+  //  status += ', ' + moveColor + ' is in check';
+  //}
+//}
 
 
-//statusEl.html(status);
+statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
 
