@@ -237,6 +237,13 @@ $(function () {
     $joinGame.click(function () {
         joinGame();
 
+<<<<<<< HEAD
+=======
+        //This code calls a timer function which waits 2000 milliseconds or 2 seconds before re-routing to game.html
+        setTimeout(function(){
+            window.location.href = "game.html";
+        }, 2000);        
+>>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
     })
 
     $leaveGame.click(function () {
