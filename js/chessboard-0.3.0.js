@@ -1247,7 +1247,8 @@ function beginDraggingPiece(source, piece, x, y) {
     DRAGGED_PIECE_LOCATION = 'offboard';
   }
   else {
-    DRAGGED_PIECE_LOCATION = source;
+    //modified LKP 11/27 source.substring instead of source
+    DRAGGED_PIECE_LOCATION = source.substring(0,2);
   }
 
   // capture the x, y coords of all squares in memory
@@ -1264,7 +1265,8 @@ function beginDraggingPiece(source, piece, x, y) {
 
   if (source !== 'spare') {
     // highlight the source square and hide the piece
-    $('#' + SQUARE_ELS_IDS[source]).addClass(CSS.highlight1)
+    //modified LKP 11/27 source.substring instead of source
+    $('#' + SQUARE_ELS_IDS[source.substring(0,2)]).addClass(CSS.highlight1)
       .find('.' + CSS.piece).css('display', 'none');
   }
 }
@@ -1820,6 +1822,7 @@ init();
 
 window.ChessBoard.beginDraggingPiece = beginDraggingPiece;
 window.ChessBoard.fenToPieceCode = fenToPieceCode;
+window.ChessBoard.stopDraggedPiece = stopDraggedPiece;
 
 // return the widget object
 return widget;
