@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var game = new Chess('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBKR w KQkq - 0 4'),
+=======
+var game = new Chess('1nbqkRub2/r2pp1Bup1/1pp4Qun/5P1Rur/P4Nup1p/4P3/1PupPP1P1P/1N2KB2 w - - 1 21'),
+>>>>>>> lpatterson/union_chain
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
@@ -43,7 +47,8 @@ else document.addEventListener('mousemove', handler);
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
 
-//modified
+//modified LKP 11/15/17
+if(game.get_is_replacing()) { return false; }
 if(game.game_over() === false && piece.search(/u/) !== -1) {
   return true;
 }
@@ -119,17 +124,19 @@ else if (game.in_draw() === true) {
 else {
   status = moveColor + ' to move';
 
+  //modified LKP: 11/15/17
+  //disable check
   // check?
-  if (game.in_check() === true) {
-    status += ', ' + moveColor + ' is in check';
-  }
+  // if (game.in_check() === true) {
+  //   status += ', ' + moveColor + ' is in check';
+  // }
 }
 
 //statusEl.html(status);
 fenEl.html(game.fen());
-//modified LKP: 10/31/2017 loading the fen string puts the unions in the board[]
-game.load(game.fen());
-pgnEl.html(game.pgn());
+//modified LKP: 10/31/2017 loading the fen string puts the board variable on the board
+// game.load(game.fen());
+//pgnEl.html(game.pgn());
 };
 
 var cfg = {
