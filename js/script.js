@@ -71,8 +71,8 @@ var move = game.move({
 if (move === null) {
   if(game.get_is_replacing()) {
     game.set_replaced_bad_move(true);
-    window.Chessboard.stopDraggedPiece("hand", global_e);
-    //window.ChessBoard.beginDraggingPiece(source, source.substring(2, source.length + 1), mouseX, mouseY);
+    //window.Chessboard.stopDraggedPiece("hand", global_e);
+    window.ChessBoard.beginDraggingPiece(source, source.substring(2, source.length + 1), mouseX, mouseY);
   } 
   else {
     return 'snapback';

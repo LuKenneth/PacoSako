@@ -1381,8 +1381,8 @@ function stopDraggedPiece(location, e) {
     dropDraggedPieceOnSquare(location);
   }
   game.set_is_replacing(false);
-  //modified LKP 11/9/17
-  if(captured_piece != null && captured_piece != undefined) {
+  //modified LKP 11/9/17, modified LKP 11/28/17 added snapback condition
+  if(captured_piece != null && captured_piece != undefined && action != 'snapback') {
     if(captured_piece.indexOf('u') != -1) {
       var replaced_piece = get_replaced_piece(captured_piece);
       //adding the location and the replaced_piece passes both pieces of information,
