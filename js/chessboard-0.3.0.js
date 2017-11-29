@@ -692,18 +692,16 @@ function buildPiece(piece, hidden, id, union) {
     html += 'id="' + id + '" ';
   }
 
-  var union_size = SQUARE_SIZE/1.5;
-  var union_style_black = 'style="width: ' + union_size + 'px;' + 'float: right;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
-  var union_style_white = 'style="width: ' + union_size + 'px;' + 'float: left;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
-  var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
-  var style = standard_style;
-  if (union) {
-    //style = (piece[0]=='b') ? union_style_black : union_style_white;
-  }
+  //modified LKP 11/29/17
+  //removed the styling rules from a previous attempt to show unions
+  //instead we have an image file for every union combination
+
+  var style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
   'data-piece="' + piece + '" ' +
   style;
+
   if (hidden === true) {
     html += 'display:none;';
   }
@@ -1275,7 +1273,11 @@ function updateDraggedPiece(x, y) {
   // put the dragged piece over the mouse cursor
   draggedPieceEl.css({
     left: x - (SQUARE_SIZE / 2),
-    top: y - (SQUARE_SIZE / 2)
+    top: y - (SQUARE_SIZE / 2),
+    //modified LKP: 11/29/17
+    //adding this prevents display: none; which would hide the dragged piece
+    //however to see the dragged piece, the play has to move the mouse
+    display: 'inline'
   });
 
   // get location
