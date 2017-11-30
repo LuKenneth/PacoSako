@@ -692,18 +692,16 @@ function buildPiece(piece, hidden, id, union) {
     html += 'id="' + id + '" ';
   }
 
-  var union_size = SQUARE_SIZE/1.5;
-  var union_style_black = 'style="width: ' + union_size + 'px;' + 'float: right;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
-  var union_style_white = 'style="width: ' + union_size + 'px;' + 'float: left;' + ' padding-top: '+union_size/4+'px;' + 'height: ' + union_size + 'px;';
-  var standard_style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
-  var style = standard_style;
-  if (union) {
-    //style = (piece[0]=='b') ? union_style_black : union_style_white;
-  }
+  //modified LKP 11/29/17
+  //removed the styling rules from a previous attempt to show unions
+  //instead we have an image file for every union combination
+
+  var style = 'style="width: ' + SQUARE_SIZE + 'px;' +  'height: ' + SQUARE_SIZE + 'px;';
   html += 'alt="" ' +
   'class="' + CSS.piece + '" ' +
   'data-piece="' + piece + '" ' +
   style;
+
   if (hidden === true) {
     html += 'display:none;';
   }
@@ -1247,7 +1245,8 @@ function beginDraggingPiece(source, piece, x, y) {
     DRAGGED_PIECE_LOCATION = 'offboard';
   }
   else {
-    DRAGGED_PIECE_LOCATION = source;
+    //modified LKP 11/27 source.substring instead of source
+    DRAGGED_PIECE_LOCATION = source.substring(0,2);
   }
 
   // capture the x, y coords of all squares in memory
@@ -1264,7 +1263,8 @@ function beginDraggingPiece(source, piece, x, y) {
 
   if (source !== 'spare') {
     // highlight the source square and hide the piece
-    $('#' + SQUARE_ELS_IDS[source]).addClass(CSS.highlight1)
+    //modified LKP 11/27 source.substring instead of source
+    $('#' + SQUARE_ELS_IDS[source.substring(0,2)]).addClass(CSS.highlight1)
       .find('.' + CSS.piece).css('display', 'none');
   }
 }
@@ -1273,7 +1273,11 @@ function updateDraggedPiece(x, y) {
   // put the dragged piece over the mouse cursor
   draggedPieceEl.css({
     left: x - (SQUARE_SIZE / 2),
-    top: y - (SQUARE_SIZE / 2)
+    top: y - (SQUARE_SIZE / 2),
+    //modified LKP: 11/29/17
+    //adding this prevents display: none; which would hide the dragged piece
+    //however to see the dragged piece, the play has to move the mouse
+    display: 'inline'
   });
 
   // get location
@@ -1379,8 +1383,8 @@ function stopDraggedPiece(location, e) {
     dropDraggedPieceOnSquare(location);
   }
   game.set_is_replacing(false);
-  //modified LKP 11/9/17
-  if(captured_piece != null && captured_piece != undefined) {
+  //modified LKP 11/9/17, modified LKP 11/28/17 added snapback condition
+  if(captured_piece != null && captured_piece != undefined && action != 'snapback') {
     if(captured_piece.indexOf('u') != -1) {
       var replaced_piece = get_replaced_piece(captured_piece);
       //adding the location and the replaced_piece passes both pieces of information,
@@ -1820,6 +1824,7 @@ init();
 
 window.ChessBoard.beginDraggingPiece = beginDraggingPiece;
 window.ChessBoard.fenToPieceCode = fenToPieceCode;
+window.ChessBoard.stopDraggedPiece = stopDraggedPiece;
 
 // return the widget object
 return widget;

@@ -10,10 +10,12 @@ pgnEl = $('#pgn');
 
 var mouseX;
 var mouseY;
+var global_e;
 
 //modified LKP: 11/9/17
 // event handler function
 function handler(e) {
+  global_e = e
   e = e || window.event;
 
   var pageX = e.pageX;
@@ -47,16 +49,18 @@ else document.addEventListener('mousemove', handler);
 // only pick up pieces for the side to move
 var onDragStart = function(source, piece, position, orientation) {
 
-//modified LKP 11/15/17
-if(game.get_is_replacing()) { return false; }
-if(game.game_over() === false && piece.search(/u/) !== -1) {
-  return true;
-}
-if (game.game_over() === true ||
-    (game.turn() === 'w' && piece.search(/^b/) !== -1 ) ||
-    (game.turn() === 'b' && piece.search(/^w/) !== -1 )) {
-  return false;
-}
+  //modified LKP 11/15/17
+  if(game.get_is_replacing() && !game.get_replaced_bad_move()) { 
+    return false; 
+  }
+  if(game.game_over() === false && piece.search(/u/) !== -1) {
+    return true;
+  }
+  if (game.game_over() === true ||
+      (game.turn() === 'w' && piece.search(/^b/) !== -1 ) ||
+      (game.turn() === 'b' && piece.search(/^w/) !== -1 )) {
+    return false;
+  }
 };
 
 var onDrop = function(source, target) {
@@ -70,7 +74,15 @@ statusEl.html(source);
 
 // illegal move
 if (move === null) {
-  return 'snapback';
+  if(game.get_is_replacing()) {
+    game.set_replaced_bad_move(true);
+    //window.Chessboard.stopDraggedPiece("hand", global_e);
+    //window.ChessBoard.beginDraggingPiece(source, source.substring(2, source.length + 1), mouseX, mouseY);
+  } 
+  else {
+    return 'snapback';
+  }
+  
 }
 
 //TAG: MODIFY LKP 11/9/17
@@ -88,6 +100,7 @@ updateStatus();
 //     window.ChessBoard.beginDraggingPiece(source, move_piece, mouseX, mouseY);
 //   }
 // }
+
 };
 
 
