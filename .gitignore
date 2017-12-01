@@ -1,4 +1,6 @@
-node_modules/
+!node_modules/
+node_modules/*
+!node_modules/chess.js/
 
 npm-debub.log
 .DS_Store
