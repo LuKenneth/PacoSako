@@ -2,7 +2,10 @@ var game = new Chess('1nbqkRub2/r2pp1Bup1/1pp4Qun/5P1Rur/P4Nup1p/4P3/1PupPP1P1P/
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
-pgnEl = $('#pgn');
+pgnEl = $('#pgn'),
+//modified LKP 11/30/2017
+//to hold a list of all the fens per update
+fen_list = [];
 
 var mouseX;
 var mouseY;
@@ -73,11 +76,9 @@ if (move === null) {
     game.set_replaced_bad_move(true);
     //window.Chessboard.stopDraggedPiece("hand", global_e);
     //window.ChessBoard.beginDraggingPiece(source, source.substring(2, source.length + 1), mouseX, mouseY);
+    game.undo_move();
   } 
-  else {
     return 'snapback';
-  }
-  
 }
 
 //TAG: MODIFY LKP 11/9/17
@@ -95,7 +96,7 @@ updateStatus();
 //     window.ChessBoard.beginDraggingPiece(source, move_piece, mouseX, mouseY);
 //   }
 // }
-
+  
 };
 
 
@@ -144,7 +145,8 @@ statusEl.html(status);
 fenEl.html(game.fen());
 //modified LKP: 10/31/2017 loading the fen string puts the board variable on the board
 // game.load(game.fen());
-//pgnEl.html(game.pgn());
+pgnEl.html(game.pgn());
+fen_list.push(game.fen());
 };
 
 var cfg = {
