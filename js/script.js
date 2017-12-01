@@ -76,7 +76,10 @@ if (move === null) {
     game.set_replaced_bad_move(true);
     //window.Chessboard.stopDraggedPiece("hand", global_e);
     //window.ChessBoard.beginDraggingPiece(source, source.substring(2, source.length + 1), mouseX, mouseY);
-    game.undo_move();
+    var newFen = findFirstMove();
+    board.position(newFen);
+    game.load(newFen);
+    game.generate_fen();
   } 
     return 'snapback';
 }
@@ -99,8 +102,34 @@ updateStatus();
   
 };
 
+/*
+modified LKP: 11/30
+finds the first move of the current player's turn
+*/
+function findFirstMove() {
 
+  var firstMove;
 
+  for(var i = fen_list.length; i >= 0; i--) {
+    firstMove = fen_list[i];
+    var tokens = fen_list[i-1].split(/\s+/);
+    if(tokens[1]==swapMove(game.turn())) {
+      break;
+    }
+  }
+  
+  return firstMove;
+
+}
+
+/*
+modified LKP 11/30/17
+returns black if given white and vice versa
+*/
+function swapMove(move) {
+
+  return move == "w" ? "b" : "w";
+}
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
