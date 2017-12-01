@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+
+
+
 var game = new Chess('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBKR w KQkq - 0 4'),
-=======
-var game = new Chess('1nbqkRub2/r2pp1Bup1/1pp4Qun/5P1Rur/P4Nup1p/4P3/1PupPP1P1P/1N2KB2 w - - 1 21'),
->>>>>>> lpatterson/union_chain
 board,
 statusEl = $('#status'),
 fenEl = $('#fen'),

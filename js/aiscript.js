@@ -119,9 +119,7 @@ if (game.in_checkmate() === true) {
   status = 'Game over, ' + moveColor + ' is in checkmate.';
 }
 //make a random legal move for black player
-  if (game.turn() ==='b' && game.in_checkmate != true){
-  window.setInterval(makeRandomMove,250);
-  }
+  
 
 
 }
@@ -131,6 +129,9 @@ if (game.in_checkmate() === true) {
 var onSnapEnd = function() {
   //if this is commented out, those 3 ^ dont work, but unions do
     board.position(game.fen());
+    //if (game.turn() ==='b' && game.in_checkmate != true){
+     // window.setInterval(makeRandomMove,300);
+     // }
     //modified LKP 11/9/17 ^that is no longer true. keep this ^ line
 };
 
@@ -156,8 +157,11 @@ else if (game.in_draw() === true) {
 // game still on
 else {
   status = moveColor + ' to move';}
+  if (game.turn() ==='b' && game.in_checkmate != true){
+     window.setInterval(makeRandomMove,300);
+     }
   //disable check 11/21/17 BV
-  // check?
+  // check
   //if (game.in_check() === true) {
   //  status += ', ' + moveColor + ' is in check';
   //}
@@ -178,6 +182,8 @@ onDragStart: onDragStart,
 onDrop: onDrop,
 onSnapEnd: onSnapEnd
 };
+
+
 board = ChessBoard('board', cfg);
 board.position(game.fen());
 updateStatus();
