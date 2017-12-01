@@ -1,4 +1,4 @@
-$(function () {
+$(function () { //declaring variables for chess game and dashboard
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
     var COLORS = [
@@ -17,14 +17,16 @@ $(function () {
     var $chatPage = $('.chat.page'); // The chatroom page
     var $joinGame = $('.joinGame');
     var $leaveGame = $('.leaveGame');
-
+	var $board = $('#board');
     // Prompt for setting a username
     var username;
     var connected = false;
     var typing = false;
     var lastTypingTime;
     var $currentInput = $usernameInput.focus();
-
+	var statusEl = $('#status'),
+	fenEl = $('#fen'),
+	pgnEl = $('#pgn');
     var socket = io();
 
     function addParticipantsMessage(data) {
@@ -54,6 +56,10 @@ $(function () {
         }
     }
 
+	
+	//Palmer
+	
+	
     // Sends a chat message
     function sendMessage() {
         var message = $inputMessage.val();
@@ -71,18 +77,21 @@ $(function () {
         }
     }
 
+	//MODIFY: West/Krotine 11/29/2017
+	function sendChessInfo() {
+		var chessInfo = fenEl.val();
+		//chessInfo = cleanInput(chessInfo);
+		if (chessInfo && connected) {
+			chessInfo.val('');
+			socket.emit('new chess info', chessInfo);
+		}
+		
+	}
     // Log a message
     function log(message, options) {
         var $el = $('<li>').addClass('log').text(message);
         addMessageElement($el, options);
     }
-
-
-
-
-
-
-
 
     // Adds the visual chat message to the message list
     function addChatMessage(data, options) {
@@ -109,6 +118,8 @@ $(function () {
         addMessageElement($messageDiv, options);
     }
 
+	
+	
     // Adds the visual chat typing message
     function addChatTyping(data) {
         data.typing = true;
@@ -233,17 +244,17 @@ $(function () {
         $inputMessage.focus();
     });
 
-
+	$board.click(function () {
+		sendChessInfo();
+	});
+	
     $joinGame.click(function () {
         joinGame();
 
-<<<<<<< HEAD
-=======
         //This code calls a timer function which waits 2000 milliseconds or 2 seconds before re-routing to game.html
-        setTimeout(function(){
-            window.location.href = "game.html";
-        }, 2000);        
->>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
+       // setTimeout(function(){
+        //    window.location.href = "game.html";
+       // }, 2000);        
     })
 
     $leaveGame.click(function () {
@@ -264,11 +275,23 @@ $(function () {
         addParticipantsMessage(data);
     });
 
+	
+	
+	//Palmer
+	
+	
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function (data) {
         addChatMessage(data);
     });
-
+	
+	//MODIFY: West/Krotine 11/29/2017
+	socket.on('new chess info', function(data) {
+		addChessInfo(data);
+	});
+	
+	
+	
 
 
     // Whenever the server emits 'user joined', log it in the chat body

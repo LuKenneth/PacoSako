@@ -7,10 +7,7 @@ var io = require('socket.io')(server);
 var port = process.env.PORT || 3001;
 var loopLimit = 0;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
 server.listen(port, function () {
     console.log('Server listening at port %d', port);
     //fs.writeFile(__dirname + '/start.log', 'started');
@@ -37,13 +34,6 @@ function buildGame(socket) {
     gameObject.playerTwo = null;
     gameCollection.totalGameCount++;
     gameCollection.gameList.push({ gameObject });
-<<<<<<< HEAD
-
-    console.log("Game Created by " + socket.username + " w/ " + gameObject.id);
-    io.emit('gameCreated', {
-        username: socket.username,
-        gameId: gameObject.id
-=======
     
     console.log("Game Created by " + socket.username + " w/ " + gameObject.id);
 
@@ -51,7 +41,6 @@ function buildGame(socket) {
         username: socket.username,
         gameId: gameObject.id
         
->>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
     });
 
 
@@ -106,18 +95,7 @@ function gameSeeker(socket) {
             gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
             socket.emit('joinSuccess', {
                 gameId: gameCollection.gameList[rndPick]['gameObject']['id']
-<<<<<<< HEAD
-            })
-
-
-            //Author Nick Krotine nkrotine18@jcu.edu 11/15/2017
-            //Waits two seconds before executing a re-route from the lobby page to the chess game page after successfully joining game
-            setTimeout(function(){
-                window.location.replace("game.html");
-            }, 2000);
-=======
             });
->>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
 
             console.log(socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
@@ -144,6 +122,15 @@ io.on('connection', function (socket) {
             message: data
         });
     });
+	
+	//MODIFY: West/Krotine 11/29/2017
+	// when the clienht emits 'new chess info', this listens and executes
+	socket.on('new chess info', function(data) {
+		
+		socket.broadcast.emit('new chess info', {
+			
+		});
+	});
 
     // when the client emits 'add user', this listens and executes
     socket.on('add user', function (username) {
@@ -196,10 +183,6 @@ io.on('connection', function (socket) {
         console.log(socket.username + " wants to join a game");
 
         var alreadyInGame = false;
-<<<<<<< HEAD
-
-=======
->>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
         for (var i = 0; i < gameCollection.totalGameCount; i++) {
             var plyr1Tmp = gameCollection.gameList[i]['gameObject']['playerOne'];
             var plyr2Tmp = gameCollection.gameList[i]['gameObject']['playerTwo'];
@@ -218,14 +201,8 @@ io.on('connection', function (socket) {
 
 
             gameSeeker(socket);
-<<<<<<< HEAD
-
-        }
-
-=======
             
         }
->>>>>>> 7f805d5cf216ea9ccec419ee9a3221b7ccc1e9d7
     });
 
 
