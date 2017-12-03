@@ -1104,8 +1104,7 @@ function removeSquareHighlights() {
 
 function snapbackDraggedPiece() {
   // there is no "snapback" for spare pieces
-  //modified LKP: 11/15/17
-  if (DRAGGED_PIECE_SOURCE === 'spare' || DRAGGED_PIECE_SOURCE == 'hand') {
+  if (DRAGGED_PIECE_SOURCE === 'spare') {
     trashDraggedPiece();
     return;
   }
@@ -1378,7 +1377,7 @@ function stopDraggedPiece(location, e) {
   else if (action === 'drop') {
     dropDraggedPieceOnSquare(location);
   }
-  game.set_is_replacing(false);
+
   //modified LKP 11/9/17
   if(captured_piece != null && captured_piece != undefined) {
     if(captured_piece.indexOf('u') != -1) {
@@ -1387,7 +1386,6 @@ function stopDraggedPiece(location, e) {
       //as well as lets you know that it's coming from a union
       beginDraggingPiece(location+replaced_piece, replaced_piece, e.pageX, e.pageY);
       game.put({type: replaced_piece[1].toLowerCase(), color: game.turn()}, "hand");
-      game.set_is_replacing(true);
     }
   }
 }

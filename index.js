@@ -123,12 +123,18 @@ io.on('connection', function (socket) {
         });
     });
 	
+	socket.on('new test message', function (data) {
+		
+		socket.broadcast.emit('new test message', {
+			testMessage: data
+		});
+	});
 	//MODIFY: West/Krotine 11/29/2017
-	// when the clienht emits 'new chess info', this listens and executes
+	// when the client emits 'new chess info', this listens and executes
 	socket.on('new chess info', function(data) {
 		
 		socket.broadcast.emit('new chess info', {
-			
+			chessInfo: data
 		});
 	});
 

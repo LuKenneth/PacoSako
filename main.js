@@ -24,9 +24,9 @@ $(function () { //declaring variables for chess game and dashboard
     var typing = false;
     var lastTypingTime;
     var $currentInput = $usernameInput.focus();
-	var statusEl = $('#status'),
-	fenEl = $('#fen'),
-	pgnEl = $('#pgn');
+	var statusEl = $('#status');
+	var fenEl = $('#fen');
+	var pgnEl = $('#pgn');
     var socket = io();
 
     function addParticipantsMessage(data) {
@@ -81,11 +81,28 @@ $(function () { //declaring variables for chess game and dashboard
 	function sendChessInfo() {
 		var chessInfo = fenEl.val();
 		//chessInfo = cleanInput(chessInfo);
-		if (chessInfo && connected) {
-			chessInfo.val('');
-			socket.emit('new chess info', chessInfo);
-		}
+		//if (chessInfo && connected) {
+            socket.emit('new chess info', chessInfo);
+		//}
 		
+	}
+	
+	function sendTestMessage() {
+		var testMessage = "Hello, This is a test message. Horray sockets";
+		
+		socket.emit('new test message', testMessage);
+	}
+	
+	function addTestMessage(data) {
+		
+
+        
+        //var $messageBodyDiv = $('<span class="testMessage">')
+       // .text(data.testMessage);
+
+       // var typingClass = data.typing ? 'typing' : '';
+        var $messageDiv = $('<span class="testMessage">')
+        .text(data.testMessage);
 	}
     // Log a message
     function log(message, options) {
@@ -244,13 +261,16 @@ $(function () { //declaring variables for chess game and dashboard
         $inputMessage.focus();
     });
 
+
+    //Modify Nick Krotine/Brandon West 11/30/2017
 	$board.click(function () {
-		sendChessInfo();
+		//sendChessInfo();
+		
 	});
 	
     $joinGame.click(function () {
         joinGame();
-
+		sendTestMessage();
         //This code calls a timer function which waits 2000 milliseconds or 2 seconds before re-routing to game.html
        // setTimeout(function(){
         //    window.location.href = "game.html";
@@ -286,11 +306,23 @@ $(function () { //declaring variables for chess game and dashboard
     });
 	
 	//MODIFY: West/Krotine 11/29/2017
-	socket.on('new chess info', function(data) {
-		addChessInfo(data);
+	//socket.on('new chess info', function(data) {
+    //    $fenE1 = data;
+	//	sendChessInfo(data);
+	//});
+	
+	socket.on('new test message', function(data) {
+		testMessage = data;
+		var message = "Before adding message";
+        log(message, {
+            prepend: true
+        });
+		addTestMessage(data);
+		var message = "After adding message";
+        log(message, {
+            prepend: true
+        });
 	});
-	
-	
 	
 
 
