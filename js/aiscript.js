@@ -17,8 +17,10 @@ pgnEl = $('#pgn');
 //this version does not allow for move in draw, checkmate, or if the move 
 //from the black player
 
-
   var onDragStart = function (source, piece, position, orientation) {
+    if(game.get_is_replacing() && !game.get_replaced_bad_move()) { 
+      return false; 
+    }
     if(game.game_over() === false && piece.search(/u/) !== -1) {
         return true;
       }
@@ -26,6 +28,7 @@ pgnEl = $('#pgn');
         piece.search(/^b/) !== -1) {
         return false;
     }
+   
   }; 
 
 
@@ -96,7 +99,7 @@ else {
    board.position(game.fen());
    
 }
-game.turn() == 'w';
+
   updateStatus();
 };
 
@@ -112,14 +115,21 @@ var move = game.move({
 
 // illegal move
 if (move === null) {
+  if(game.get_is_replacing()) {
+    game.set_replaced_bad_move(true);
+  }
+  else{
   return 'snapback';
+  }
 }
 updateStatus();
 if (game.in_checkmate() === true) {
   status = 'Game over, ' + moveColor + ' is in checkmate.';
 }
 //make a random legal move for black player
-  
+  if (game.in_check() === true) {
+    status += ', ' + moveColor + ' is in check';
+  }
 
 
 }
@@ -129,9 +139,9 @@ if (game.in_checkmate() === true) {
 var onSnapEnd = function() {
   //if this is commented out, those 3 ^ dont work, but unions do
     board.position(game.fen());
-    //if (game.turn() ==='b' && game.in_checkmate != true){
-     // window.setInterval(makeRandomMove,300);
-     // }
+    if (game.turn() ==='b' && game.in_checkmate != true){
+      window.setInterval(makeRandomMove,300);
+    }
     //modified LKP 11/9/17 ^that is no longer true. keep this ^ line
 };
 
@@ -157,20 +167,18 @@ else if (game.in_draw() === true) {
 // game still on
 else {
   status = moveColor + ' to move';}
-  if (game.turn() ==='b' && game.in_checkmate != true){
-     window.setInterval(makeRandomMove,300);
-     }
+ 
   //disable check 11/21/17 BV
   // check
-  //if (game.in_check() === true) {
-  //  status += ', ' + moveColor + ' is in check';
-  //}
+  
 //}
 
 
 statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
+
+
 
 };
 
@@ -187,3 +195,4 @@ onSnapEnd: onSnapEnd
 board = ChessBoard('board', cfg);
 board.position(game.fen());
 updateStatus();
+
