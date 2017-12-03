@@ -139,9 +139,7 @@ if (game.in_checkmate() === true) {
 var onSnapEnd = function() {
   //if this is commented out, those 3 ^ dont work, but unions do
     board.position(game.fen());
-    if (game.turn() ==='b' && game.in_checkmate != true){
-      window.setInterval(makeRandomMove,300);
-    }
+    
     //modified LKP 11/9/17 ^that is no longer true. keep this ^ line
 };
 
@@ -178,7 +176,9 @@ statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
 
-
+if (game.turn() ==='b' && game.in_checkmate != true){
+  window.setInterval(makeRandomMove,300);
+}
 
 };
 
