@@ -180,7 +180,7 @@ if (game.turn() === 'b') {
 
 // checkmate?
 if (game.in_checkmate() === true) {
-    status = 'Game over, ' + moveColor + ' is in checkmate.';
+    status = 'Game over, ' + moveColor + ' is in Paco Sako.';
 }
 
 // draw?
@@ -205,7 +205,7 @@ pgnEl.html(game.pgn());
 if (game.turn() ==='b'){
   if (game.in_checkmate() === true)
   {
-    Status = 'Game over,' + moveColor + ' is in checkmate.'
+    Status = 'Game over,' + moveColor + ' is in Paco Sako.'
   }
   else{
   window.setInterval(makeRandomMove,400);

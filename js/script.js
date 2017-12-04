@@ -154,7 +154,7 @@ if (game.turn() === 'b') {
 
 // checkmate?
 if (game.in_checkmate() === true) {
-  status = 'Game over, ' + moveColor + ' is in checkmate.';
+  status = 'Game over, ' + moveColor + ' is in Paco Sako.';
 }
 
 // draw?
