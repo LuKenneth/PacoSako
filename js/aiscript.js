@@ -36,7 +36,7 @@ pgnEl = $('#pgn');
 
 var makeRandomMove = function()
 {
-  if (game.turn()==='b')
+  if (game.turn()==='b' && game.game_over() === false)
 {
   var newMove = game.moves();
   
@@ -88,19 +88,19 @@ else {
 }
   //going to replicate the onDrop function but for AI
   //will pick the string apart, only issue is finding the source
-  var move = game.move({
-    from: part1,
-    to: part2,
-    promotion: 'q'
-  });
-  
+  //var move = game.move({
+   // from: part1,
+   // to: part2,
+   // promotion: 'q'
+  //});
+  onDrop(part1,part2); //somehow this solves the issue if the player's chaining not working.
   //for debugging
    //statusEl.html(newMove[random] + ' '+ moveString + ' '+ part1 + ' ' + part2);
    board.position(game.fen());
    
 }
 
-  updateStatus();
+ // updateStatus();
 };
 
 if (game.turn() ==='w')
@@ -117,23 +117,49 @@ var move = game.move({
 if (move === null) {
   if(game.get_is_replacing()) {
     game.set_replaced_bad_move(true);
-  }
-  else{
-  return 'snapback';
-  }
+    //window.Chessboard.stopDraggedPiece("hand", global_e);
+    //window.ChessBoard.beginDraggingPiece(source, source.substring(2, source.length + 1), mouseX, mouseY);
+    var newFen = findFirstMove();
+    board.position(newFen);
+    game.load(newFen);
+    game.generate_fen();
+  } 
+    return 'snapback';
 }
-updateStatus();
-if (game.in_checkmate() === true) {
-  status = 'Game over, ' + moveColor + ' is in checkmate.';
-}
+
+
 //make a random legal move for black player
-  if (game.in_check() === true) {
-    status += ', ' + moveColor + ' is in check';
+updateStatus();
+}
+}
+/*
+modified LKP: 11/30
+finds the first move of the current player's turn
+*/
+function findFirstMove() {
+  
+    var firstMove;
+  
+    for(var i = fen_list.length; i >= 0; i--) {
+      firstMove = fen_list[i];
+      var tokens = fen_list[i-1].split(/\s+/);
+      if(tokens[1]==swapMove(game.turn())) {
+        break;
+      }
+    }
+    
+    return firstMove;
+  
   }
-
-
-}
-}
+  
+  /*
+  modified LKP 11/30/17
+  returns black if given white and vice versa
+  */
+  function swapMove(move) {
+  
+    return move == "w" ? "b" : "w";
+  }
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
@@ -154,7 +180,7 @@ if (game.turn() === 'b') {
 
 // checkmate?
 if (game.in_checkmate() === true) {
-  status = 'Game over, ' + moveColor + ' is in checkmate.';
+    status = 'Game over, ' + moveColor + ' is in checkmate.';
 }
 
 // draw?
@@ -176,8 +202,14 @@ statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
 
-if (game.turn() ==='b' && game.in_checkmate != true){
-  window.setInterval(makeRandomMove,300);
+if (game.turn() ==='b'){
+  if (game.in_checkmate() === true)
+  {
+    Status = 'Game over,' + moveColor + ' is in checkmate.'
+  }
+  else{
+  window.setInterval(makeRandomMove,400);
+  }
 }
 
 };
