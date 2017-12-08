@@ -39,13 +39,59 @@ var makeRandomMove = function()
   if (game.turn()==='b' && game.game_over() === false)
 {
   var newMove = game.moves();
+  var again = true;
+  var findEnemyKing = true;
+  //this makes sure the ai does not choose a path to kill their own king
+  while (again)
+  {
   
    var random = [Math.floor(Math.random() * newMove.length)];
 
    
    //need to transform captured into union to fool the code...
    var moveString = newMove[random];
+   var checkKing = moveString.slice(0,2);
+    if (checkKing != 'Kx')
+    {
+      again = false;
+    }
+  }
+
   //var fixed = moveString.replace("x","u");
+  //this will check to see if the ai has a direct shot at the enemy king
+  /*var whiteKing;
+  while (findEnemyKing)
+  {
+    for (var index = 0; index < newMove.length; index++)
+    {
+        findWhiteKing = newMove[index];
+        var capture = findWhiteKing.slice(0,2);
+        if (capture === 'Kx')
+        {
+          index++;
+        }
+        
+        else
+        {
+          capture = findWhiteKing.slice(1,2);
+          if (capture === 'x')
+          {
+              
+            var move = game.move(moveString.slice(1,3), moveString.slice(3,5), 'q');
+            if (!game.in_checkmate())
+            {
+              var move = game.move(moveString.slice(3,5),moveString.slice(1,3), 'q');
+            }
+            else{
+              Status = 'Game over, white is in Paco Sako'; 
+            }
+          }
+
+        }
+    }
+    findEnemyKing = false;
+  }
+*/
 
   //this checks to see if there is a piece string attatched 
 var checkStr = moveString.slice(0,1);
