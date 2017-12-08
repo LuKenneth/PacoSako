@@ -5,6 +5,7 @@ board,
 statusEl = $('#status'),
 fenEl = $('#fen'),
 pgnEl = $('#pgn');
+fen_list = [];
 // "rnbqkbnr/pppppppp/8/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 0 1"
 // setup my socket client
 // var socket = io();
@@ -39,8 +40,8 @@ var makeRandomMove = function()
   if (game.turn()==='b' && game.game_over() === false)
 {
   var newMove = game.moves();
-  var again = true;
-  var findEnemyKing = true;
+  //var again = true;
+  //var findEnemyKing = true;
   //this makes sure the ai does not choose a path to kill their own king
   while (again)
   {
@@ -247,6 +248,8 @@ else {
 statusEl.html(status);
 fenEl.html(game.fen());
 pgnEl.html(game.pgn());
+fen_list.push(game.fen());
+
 
 if (game.turn() ==='b'){
   if (game.in_checkmate() === true)
