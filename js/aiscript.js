@@ -40,7 +40,7 @@ var makeRandomMove = function()
   if (game.turn()==='b' && game.game_over() === false)
 {
   var newMove = game.moves();
-  //var again = true;
+  var again = true;
   //var findEnemyKing = true;
   //this makes sure the ai does not choose a path to kill their own king
   while (again)
