@@ -1,0 +1,54 @@
+h1 {
+    text-align: center;
+	background-color: #000;
+	width: 100%;
+}
+
+h2 {
+	
+	text-align: center;
+	font-size: 40px;
+	
+}
+body {
+	
+	background-color: #333
+}
+
+.gameRulesButton input,
+ .lobbyButton input,
+ .playButton input,
+ .testGameButton input {
+   
+   background: #000000;
+
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  text-shadow: 1px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 25px;
+  padding: 15px 20px 15px 20px;
+  text-decoration: none;
+  width: 400px;
+  
+}
+
+.menuButtons {
+	
+  position: center;
+  text-align: center;
+  
+  
+}
+
+.playButton,
+.gameRulesButton,
+.testGameButton,
+.lobbyButton {
+	
+	
+  
+  
+}

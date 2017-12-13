@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paco Sako</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<h1><a href = "index.html"><img src="img/pacoSakoBanner.png" alt = "PacoSakoTitle"></a></h1>
+<body  bgcolor="#333333">
+		
+    <ul class="pages">
+        <li class="chat page">
+		
+		
+            <div class='gameButtons'>
+                <button class='joinGame' placeholder="Join Game" >Join Game</button>
+                
+                <button class='leaveGame' placeholder="Leave Game" >Exit Game</button>
+                <br>
+            </div>
+			
+			<div>
+			<!--<div id="board" style="width: 400px"></div>-->
+			<div id="board" style="width: 400px"></div>
+			<br>
+			
+			
+			<div class="chatArea">
+				<p class="userLabel">Users Connected</p>
+				<p class="users"></p>
+				
+                <ul class="messages"></ul>
+            </div>
+            <input class="inputMessage" placeholder="Type here..." />
+			
+			
+			</div>
+			
+			<div  class="chessStatus">
+				<p>Status: <span id="status"></span></p>
+				<!--<p>FEN: <span id="fen"></span></p>-->
+				
+			</div>
+			
+		<!-- Commented because of existing bug with displayed pgn
+			<div class="pgnArea">
+				<ul class="pgnMessage" id="pgn"></ul> 
+			</div>
+			<p>PGN: <span id="pgn"></span></p>-->
+			
+		
+            
+		</li>
+        <li class="usersList">
+            <div class="usersList">
+                <ul class="Users"></ul>
+            </div>
+        <li class="login page">
+            <div class="form">
+                <h3 class="title">Enter your Username:</h3>
+                <input class="usernameInput" type="text" maxlength="14" />
+            </div>
+        </li>
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    
+
+
+</body>
+
+<script src="node_modules/chess.js/chess.js"></script>
+<script src="node_modules/requirejs/require.js"></script>
+<script src="js/chessboard-0.3.0.js"></script>
+<script src="script.js"></script>
+</html>
